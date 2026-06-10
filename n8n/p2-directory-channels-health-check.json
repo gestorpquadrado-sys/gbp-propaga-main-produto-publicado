@@ -1,0 +1,81 @@
+{
+  "name": "p2-directory-channels-health-check",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "p2/directory-channels/check",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -320,
+        0
+      ],
+      "id": "0054eed1-1245-44ce-84d0-d68198d01845",
+      "name": "Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// P2 Directory Health Check\n// Requer variáveis no n8n:\n// SUPABASE_URL=https://xxxx.supabase.co\n// SUPABASE_SERVICE_ROLE_KEY=service_role_key\n\nconst SUPABASE_URL = $env.SUPABASE_URL || $env.N8N_SUPABASE_URL;\nconst SUPABASE_KEY = $env.SUPABASE_SERVICE_ROLE_KEY || $env.N8N_SUPABASE_SERVICE_ROLE_KEY;\n\nif (!SUPABASE_URL || !SUPABASE_KEY) {\n  throw new Error('Configure SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY nas variáveis do n8n.');\n}\n\nconst input = $input.first().json || {};\nconst query = input.query || {};\nconst limit = Number(query.limit || 150);\nconst mode = String(query.mode || 'safe'); // safe = não desativa por 403/500/timeout\n\nconst headers = {\n  apikey: SUPABASE_KEY,\n  Authorization: `Bearer ${SUPABASE_KEY}`,\n  'Content-Type': 'application/json',\n  Prefer: 'return=minimal'\n};\n\nfunction normalizeUrl(url) {\n  if (!url) return null;\n  const raw = String(url).trim();\n  if (!raw) return null;\n  return /^https?:\\/\\//i.test(raw) ? raw : `https://${raw}`;\n}\n\nfunction classify(httpStatus, errorMessage) {\n  if (errorMessage) {\n    return { status: 'warning', isActive: true, message: errorMessage };\n  }\n  if (httpStatus === 404 || httpStatus === 410) {\n    return { status: 'inactive', isActive: false, message: `HTTP ${httpStatus}: página não encontrada/removida` };\n  }\n  if (httpStatus >= 200 && httpStatus < 400) {\n    return { status: 'active', isActive: true, message: `HTTP ${httpStatus}: ativo` };\n  }\n  if ([401, 403, 405, 429].includes(httpStatus)) {\n    return { status: 'warning', isActive: true, message: `HTTP ${httpStatus}: exige login, bloqueia HEAD ou limita acesso` };\n  }\n  if (httpStatus >= 500) {\n    return { status: mode === 'strict' ? 'inactive' : 'warning', isActive: mode === 'strict' ? false : true, message: `HTTP ${httpStatus}: instável no momento` };\n  }\n  return { status: 'warning', isActive: true, message: `HTTP ${httpStatus}: verificar manualmente` };\n}\n\nasync function supabaseFetch(path, options = {}) {\n  const response = await fetch(`${SUPABASE_URL}${path}`, {\n    ...options,\n    headers: { ...headers, ...(options.headers || {}) },\n  });\n  if (!response.ok) {\n    const text = await response.text().catch(() => '');\n    throw new Error(`Supabase ${response.status}: ${text}`);\n  }\n  if (response.status === 204) return null;\n  return response.json();\n}\n\nconst channels = await supabaseFetch(`/rest/v1/directory_channels?select=code,name,website_url,is_active,submission_type&website_url=not.is.null&order=priority.asc&limit=${limit}`);\nconst results = [];\n\nfor (const channel of channels || []) {\n  const url = normalizeUrl(channel.website_url);\n  let httpStatus = null;\n  let errorMessage = null;\n\n  try {\n    const res = await fetch(url, { method: 'HEAD', redirect: 'follow', signal: AbortSignal.timeout(12000) });\n    httpStatus = res.status;\n    if (httpStatus === 405 || httpStatus === 403) {\n      const resGet = await fetch(url, { method: 'GET', redirect: 'follow', signal: AbortSignal.timeout(12000) });\n      httpStatus = resGet.status;\n    }\n  } catch (err) {\n    errorMessage = err.message || 'Falha ao acessar URL';\n  }\n\n  const classified = classify(httpStatus, errorMessage);\n  const checkedAt = new Date().toISOString();\n  const updateBody = {\n    is_active: classified.isActive,\n    last_checked_at: checkedAt,\n    last_check_status: classified.status,\n    last_check_http_status: httpStatus,\n    last_check_message: classified.message,\n    updated_at: checkedAt\n  };\n\n  await supabaseFetch(`/rest/v1/directory_channels?code=eq.${encodeURIComponent(channel.code)}`, {\n    method: 'PATCH',\n    body: JSON.stringify(updateBody)\n  });\n\n  await supabaseFetch('/rest/v1/directory_channel_checks', {\n    method: 'POST',\n    body: JSON.stringify({\n      channel_code: channel.code,\n      checked_at: checkedAt,\n      status: classified.status,\n      http_status: httpStatus,\n      message: classified.message,\n      raw_response: { url, previous_is_active: channel.is_active, submission_type: channel.submission_type }\n    })\n  });\n\n  results.push({\n    code: channel.code,\n    name: channel.name,\n    url,\n    httpStatus,\n    status: classified.status,\n    isActive: classified.isActive,\n    message: classified.message\n  });\n}\n\nreturn [{\n  json: {\n    success: true,\n    checked: results.length,\n    active: results.filter(r => r.isActive).length,\n    inactive: results.filter(r => !r.isActive).length,\n    timestamp: new Date().toISOString(),\n    results\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        0
+      ],
+      "id": "d7a8f68f-93dc-4a07-9815-889677397659",
+      "name": "Check Directory Channels"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        160,
+        0
+      ],
+      "id": "8aac34c0-5500-46ab-80d0-c188e4844042",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Check Directory Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Directory Channels": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ff23bd55-1bb3-4928-ab1d-65f77939c338",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}

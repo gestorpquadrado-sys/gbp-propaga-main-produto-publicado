@@ -1,0 +1,161 @@
+{
+  "name": "p2-google-categories-list",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "=GET, OPTIONS",
+        "path": "p2/google-categories/list",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        0
+      ],
+      "id": "2ff8024c-7fce-4901-a2e8-162b15645467",
+      "name": "Webhook - Google Categories",
+      "webhookId": "70ecf126-b53d-4a9c-8555-093233e1b1b7"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json || {};\nconst query = input.query || input.params || {};\n\nconst rawSearch = String(query.query || query.search || query.q || '').trim();\nconst regionCode = String(query.regionCode || query.region || 'BR').toUpperCase();\nconst languageCode = String(query.languageCode || query.language || 'pt-BR');\nconst pageSize = Math.min(Math.max(parseInt(query.limit || query.pageSize || '100', 10) || 100, 1), 100);\nconst pageToken = query.pageToken ? String(query.pageToken) : '';\n\nreturn [{\n  json: {\n    rawSearch,\n    regionCode,\n    languageCode,\n    pageSize,\n    pageToken,\n    filter: rawSearch ? `displayName=${rawSearch}` : '',\n    requested_at: new Date().toISOString()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        0
+      ],
+      "id": "ac5efd08-2af2-4cf8-bac7-83cde3d3256a",
+      "name": "Function - Normalize Query"
+    },
+    {
+      "parameters": {
+        "url": "=https://mybusinessbusinessinformation.googleapis.com/v1/categories?regionCode={{ $json.regionCode }}&languageCode={{ $json.languageCode }}&view=BASIC&pageSize={{ $json.pageSize }}{{ $json.pageToken ? '&pageToken=' + encodeURIComponent($json.pageToken) : '' }}{{ $json.filter ? '&filter=' + encodeURIComponent($json.filter) : '' }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleBusinessProfileOAuth2Api",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -224,
+        0
+      ],
+      "id": "ac1fd7d4-5b42-40d8-8e32-8f7ab7768085",
+      "name": "HTTP Request - Google Categories API",
+      "credentials": {
+        "googleBusinessProfileOAuth2Api": {
+          "id": "5igdUXdVK0NEyRuT",
+          "name": "Google Business Profile account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json || {};\nconst categories = Array.isArray(response.categories) ? response.categories : [];\n\nconst normalized = categories.map((category) => ({\n  categoryId: category.categoryId || category.name || null,\n  id: category.name || category.categoryId || null,\n  displayName: category.displayName || category.name || category.categoryId || '',\n  serviceTypes: category.serviceTypes || [],\n  moreHoursTypes: category.moreHoursTypes || [],\n  raw: category\n})).filter((category) => category.displayName);\n\nreturn [{\n  json: {\n    success: true,\n    source: 'google-business-profile-api',\n    total: normalized.length,\n    categories: normalized,\n    nextPageToken: response.nextPageToken || null,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        0
+      ],
+      "id": "ae646f5d-4187-45c6-8e2a-8443df613d24",
+      "name": "Function - Format Category Response"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "GET, POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type, Authorization"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        288,
+        0
+      ],
+      "id": "5b2e3700-b5d7-470c-916c-b214bd16d4fb",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook - Google Categories": {
+      "main": [
+        [
+          {
+            "node": "Function - Normalize Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - Normalize Query": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request - Google Categories API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request - Google Categories API": {
+      "main": [
+        [
+          {
+            "node": "Function - Format Category Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function - Format Category Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1b4ba99c-ece4-48db-bf24-d1fbaebf16b0",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "id": "p2GoogleCategoriesList",
+  "tags": []
+}

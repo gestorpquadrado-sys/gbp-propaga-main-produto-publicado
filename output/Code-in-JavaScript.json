@@ -1,0 +1,2464 @@
+[
+    {
+      "success": true,
+      "total": 56,
+      "locations": [
+        {
+          "google_location_id": "locations/10025528591804033435",
+          "google_place_id": "ChIJry_NI6R7uJQRG_r37FHsOL4",
+          "google_maps_uri": "https://maps.google.com/maps?cid=13706965302514285083",
+          "name": "YOTECH Robótica e Programação",
+          "description": "A YOTECH Robótica e Programação, em São Carlos – SP, é especialista em robótica industrial e no desenvolvimento de projetos de robô para automação industrial, CLP e integração de sistemas de automação. Atuamos com robôs automáticos, processos industriais otimizados, soluções em programação, equipamentos automáticos e projetos elétricos para máquinas industriais. Como empresa de robótica, entregamos tecnologia aplicada com inteligência e precisão. A YOTECH é referência em robótica industrial, com soluções sob medida para cada projeto.",
+          "phone_primary": "(16) 99135-4188",
+          "phone_additional": "(16) 99214-6910",
+          "website": "http://www.yotechrobotica.com.br/",
+          "address_full": "Avenida Dom Carmine Rocco, 941B",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13568-120",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Empresa de Automação Empresarial",
+          "categories_additional": [
+            "Fornecedor de equipamentos industriais"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/10831693681590664342",
+          "google_place_id": "ChIJCShcvTV3uJQRVh5QBBgJKTQ",
+          "google_maps_uri": "https://maps.google.com/maps?cid=3758545362773614166",
+          "name": "CIDI - Centro Integrado Diagnóstico Por Imagem",
+          "description": "CIDI São Carlos - Diagnóstico por Imagem com Excelência e Tecnologia\n\nO CIDI - Centro Integrado Diagnóstico por Imagem, localizado na R. Maestro João Seppe, s/nº, no Jardim Paraíso, em São Carlos, é referência em diagnósticos de alta precisão. Oferecemos uma ampla gama de exames, como Raio-X simples e contrastado, Tomografia Helicoidal e Cardíaca, Ressonância Magnética, Ultrassom geral, Doppler, Densitometria Óssea e Mamografia.\n\nCom tecnologia avançada e equipe especializada, garantimos resultados confiáveis e atendimento humanizado. Para agendamentos, entre em contato pelo telefone (16) 3509-1155. Confie no CIDI para cuidar da sua saúde!",
+          "phone_primary": "(16) 3509-1155",
+          "phone_additional": "(16) 3364-2609",
+          "website": "https://clinicacidi.com.br/",
+          "address_full": "Rua Maestro João Seppe, s/nº",
+          "address_city": "São Carlos",
+          "address_state": "São Paulo",
+          "address_postal_code": "13561-180",
+          "address_country": "BR",
+          "address_neighborhood": "Jardim Paraiso",
+          "category_primary": "Centro de diagnóstico médico por imagem",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:00",
+              "close": "19:00"
+            },
+            "tuesday": {
+              "open": "07:00",
+              "close": "19:00"
+            },
+            "wednesday": {
+              "open": "07:00",
+              "close": "19:00"
+            },
+            "thursday": {
+              "open": "07:00",
+              "close": "19:00"
+            },
+            "friday": {
+              "open": "07:00",
+              "close": "19:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/8132570609565449112",
+          "google_place_id": "ChIJ3cdjv1a-uZQR3wRokNZ4Owo",
+          "google_maps_uri": "https://maps.google.com/maps?cid=737315826946278623",
+          "name": "Abinapa Artigos para Tapeçaria",
+          "description": "Abinapa Artigos para Tapeçaria em Ribeirão Preto – SP é especialista em tecidos para tapeçaria, estofados e automotivos, atendendo atacado e varejo. Oferecemos ampla variedade de tecidos para móveis, tecidos decorativos e tecidos automotivos como suede, veludo, linho, jacquard, chenille e tecido impermeável. Trabalhamos com courvin, courvin costurado, courvin acoplado, courvin Santorini, couro sintético e couro natural para reforma de estofados, customização automotiva e decoração de ambientes. Comercializamos carpete automotivo, espuma para estofados, espuma D23, D28, D33, manta acrílica, enchimento para almofadas e aviamentos para tapeçaria como zíperes, botões, tachas e linhas para costura. Na Abinapa você encontra tudo que precisa!",
+          "phone_primary": "(16) 99310-7717",
+          "phone_additional": "",
+          "website": "https://abinapatecidos.com.br/",
+          "address_full": "Rua Sergipe, 165",
+          "address_city": "Ribeirão Preto",
+          "address_state": "SP",
+          "address_postal_code": "14080-040",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Loja de tecidos",
+          "categories_additional": [
+            "Loja de sofás",
+            "Loja de colchões",
+            "Tapeçaria",
+            "Estofamento automotivo"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "17:30"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "17:30"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "17:30"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "17:30"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "17:30"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/1614665771622396516",
+          "google_place_id": "ChIJ_bX-O7q3lZQRhDsbZl4CpLg",
+          "google_maps_uri": "https://maps.google.com/maps?cid=13304761803622529924",
+          "name": "MEPCRED SOLUÇÕES FINANCEIRAS",
+          "description": "A MEPCRED Soluções Financeiras é especialista em Empréstimo consignado em Tupã – SP, atendendo aposentados, pensionistas do INSS e funcionários públicos municipais, estaduais e federais. Também oferecemos antecipação de FGTS, crédito pessoal com desconto direto na fatura de energia através de companhias conveniadas e consórcios de imóvel, veículo e serviços. Nosso atendimento é ágil, humanizado e transparente, com taxas justas, processos simples e segurança em todas as etapas. Simule seu Empréstimo consignado e realize seus sonhos com tranquilidade e suporte de quem entende do assunto.",
+          "phone_primary": "(14) 99678-1247",
+          "phone_additional": "",
+          "website": "https://mepcred.com.br/",
+          "address_full": "RUA CHERENTES N°250 3° ANDAR SALA 33",
+          "address_city": "Tupã",
+          "address_state": "SP",
+          "address_postal_code": "17600-090",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Agência de empréstimos",
+          "categories_additional": [
+            "Consultor financeiro"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "tuesday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "wednesday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "thursday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "friday": {
+              "open": "08:30",
+              "close": "17:30"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/16256052775316680044",
+          "google_place_id": "ChIJYa3xryR3uJQRSF2kpHeCjPU",
+          "google_maps_uri": "https://maps.google.com/maps?cid=17693660486406790472",
+          "name": "Jayme Moda Masculina",
+          "description": "Jayme Modas Masculina - Estilo e Elegância no Centro de São Carlos - SP A Jayme Modas Masculina, localizada na R. 15 de Novembro, 1600 - Centro, São Carlos - SP, 13560-240, é referência em moda masculina com peças que unem estilo, qualidade e conforto. Oferecemos roupas e acessórios para todas as ocasiões, desde o casual ao social, atendendo ao homem moderno que valoriza sofisticação. Com marcas renomadas e atendimento personalizado, garantimos que você encontre o look perfeito para destacar sua personalidade. Para mais informações, ligue (16) 99322-2838 ou venha nos visitar. Transforme seu guarda-roupa com a Jayme Modas Masculina!",
+          "phone_primary": "(16) 99322-2838",
+          "phone_additional": "(16) 3364-2074",
+          "website": "https://www.jaymemodas.com.br/",
+          "address_full": "Rua Quinze de Novembro, 1600",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560240",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Loja de moda masculina",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "13:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/16285956334187486666",
+          "google_place_id": "ChIJI9Lf8xADzpQRdZHvc7nzxQg",
+          "google_maps_uri": "https://maps.google.com/maps?cid=632179300555002229",
+          "name": "Supermercado Colosso Pompéia",
+          "description": "O Supermercado Colosso Pompéia é um supermercado de bairro completo e confiável em Santos. Atendemos nossos clientes com variedade, qualidade e preços justos em todos os setores: hortifrúti com frutas e legumes frescos todos os dias, açougue com carnes selecionadas e cortes personalizados, padaria artesanal, bebidas, laticínios, produtos de limpeza e mercearia seca. Oferecemos entrega em domicílio, feirinha com ofertas especiais às terças e sextas, atendimento via WhatsApp, além de contar com um e-commerce próprio para quem prefere comprar online. Oferecemos estacionamento, aceitamos Pix, cartões, vales e temos horário estendido, inclusive aos domingos e feriados. Faça suas compras com quem entende da sua rotina.",
+          "phone_primary": "(13) 3325-2929",
+          "phone_additional": "(13) 97407-9314",
+          "website": "https://onlinesim.com.br/colossosupermercado/",
+          "address_full": "Rua Euclydes da Cunha, 233",
+          "address_city": "Santos",
+          "address_state": "SP",
+          "address_postal_code": "11065-101",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Supermercado",
+          "categories_additional": [
+            "Padaria"
+          ],
+          "hours": {
+            "sunday": {
+              "open": "07:00",
+              "close": "14:00"
+            },
+            "monday": {
+              "open": "07:00",
+              "close": "21:00"
+            },
+            "tuesday": {
+              "open": "07:00",
+              "close": "21:00"
+            },
+            "wednesday": {
+              "open": "07:00",
+              "close": "21:00"
+            },
+            "thursday": {
+              "open": "07:00",
+              "close": "21:00"
+            },
+            "friday": {
+              "open": "07:00",
+              "close": "21:00"
+            },
+            "saturday": {
+              "open": "07:00",
+              "close": "21:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/11131098639650553713",
+          "google_place_id": "ChIJWSlg9C13uJQRBeZuO7AvudQ",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15328335240690066949",
+          "name": "Maison K",
+          "description": "A Maison K é uma loja de roupa feminina em São Carlos – SP, referência em moda feminina e na venda de roupas e acessórios para mulheres que valorizam estilo, conforto e sofisticação. Oferecemos uma curadoria exclusiva com calças, vestidos, saias, blusas, conjuntos, macacões e jeans, além de acessórios femininos como cintos, brincos, bolsas e lenços. Também trabalhamos com moda casa. Com provador instagramável, ambiente acolhedor e atendimento personalizado, proporcionamos uma experiência única. Endereço: R. Episcopal, 2089A - Centro, São Carlos - SP Telefone: (16) 3307-4960 Visite a Maison K ou fale conosco no WhatsApp e monte seu look com a gente!",
+          "phone_primary": "(16) 3307-4960",
+          "phone_additional": "",
+          "website": "https://www.facebook.com/maisonksaocarlos/",
+          "address_full": "Rua Episcopal, 2089A",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-049",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Loja de Roupa",
+          "categories_additional": [
+            "Loja de moda feminina",
+            "Loja de acessórios de moda"
+          ],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "13:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/18100466213509665443",
+          "google_place_id": "ChIJ93DTiQVxuJQRTmNYzI3pWwk",
+          "google_maps_uri": "https://maps.google.com/maps?cid=674389364450026318",
+          "name": "Tapeçaria e Loja Karraza estofados",
+          "description": "A Karraza Estofados é especializada em reformas e tapeçaria de estofados para residências, comércios e empresas em São Carlos – SP. Oferecemos serviços de troca de tecidos, espumas, percintas e criação de estofados sob medida e personalizados, deixando seu móvel como novo, com a possibilidade de escolher os materiais desejados. Além disso, trabalhamos com cabeceiras sob medida e personalizadas, e realizamos reformas em sofás, poltronas, cadeiras de jantar e outros estofados, sempre com um toque artesanal e qualidade superior. 📍 R. Cândido de Arruda Botelho, 1648 - Parque Santa Felicia Jardim, São Carlos - SP WhatsApp:(16) 3419-0008",
+          "phone_primary": "(16) 3419-0008",
+          "phone_additional": "(16) 3419-3670",
+          "website": "https://wa.me/551634190008",
+          "address_full": "Rua Cândido de Arruda Botelho, 1648",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13562-140",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Tapeçaria",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "17:30"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "17:30"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "17:30"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "17:30"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "17:30"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/9099862012342157109",
+          "google_place_id": "ChIJy5jidth2uJQRdwRrTYTDdZ0",
+          "google_maps_uri": "https://maps.google.com/maps?cid=11346189809231791223",
+          "name": "Pepato & Buono Sociedade de Advogados",
+          "description": "Pepato & Buono Sociedade de Advogados.\nAdvocacia em São Carlos.\n\nSomos uma advocacia sólida e respeitada, reconhecida pela dedicação à ética, responsabilidade social e excelência profissional. Nosso compromisso é oferecer atendimento personalizado, traduzindo a confiança de nossos clientes em soluções jurídicas eficazes.\n\nCom uma trajetória de sucesso, destacamo-nos na advocacia empresarial, prestando assessoria jurídica global em diversas áreas por meio de equipes especializadas e altamente qualificadas.\n\nÁreas de atuação:\n\nDireito Ambiental\nDireito Civil\nDireito Comercial\nDireito Trabalhista\nDireito Tributário\nDireito Penal\nDireito Eleitoral\nDireito Familiar\nArbitragem e Mediação\nSegurança do Trabalho",
+          "phone_primary": "(16) 99218-6336",
+          "phone_additional": "",
+          "website": "http://pepato.adv.br/",
+          "address_full": "Rua General Osório, 1192",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-640",
+          "address_country": "BR",
+          "address_neighborhood": "Jardim",
+          "category_primary": "Advogado",
+          "categories_additional": [
+            "Escritório de advocacia",
+            "Ordem dos advogados"
+          ],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/8236636489323424083",
+          "google_place_id": "ChIJ5TqOMZp3uJQR-HnqBtslatI",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15161972718140291576",
+          "name": "Via gás Aracy",
+          "description": "A Via Gás Aracy é especializada na venda de gás em São Carlos – SP, oferecendo botijão de gás 13kg com agilidade, segurança e confiança. Trabalhamos com gás 13kg para residências e estabelecimentos, com entrega de gás rápida ou retirada na loja gás, conforme sua preferência. Garantimos atendimento eficiente e qualidade em cada botijão de gás fornecido. Se você procura venda de botijão com ótimo custo-benefício e suporte de verdade, fale com a Via Gás Aracy. Nosso compromisso é garantir que você nunca fique sem gás quando mais precisa. Via Gás Aracy: sua escolha certa em gás e botijão 13kg.",
+          "phone_primary": "(16) 3415-0324",
+          "phone_additional": "",
+          "website": "https://www.facebook.com/profile.php?id=100086946454557&mibextid=zbwkwl",
+          "address_full": "Rua Orlando Tavoni -291",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13573-241",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Companhia de gás",
+          "categories_additional": [],
+          "hours": {
+            "sunday": {
+              "open": "08:00",
+              "close": "13:00"
+            },
+            "monday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/3325347116637201942",
+          "google_place_id": "ChIJF0rBYy53uJQRp8i8gb2TtdE",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15111146566846302375",
+          "name": "CADI Centro Avançado de Diagnóstico por Imagem - UNIMED - São Carlos",
+          "description": "O CADI Centro Avançado de Diagnóstico por Imagem - UNIMED - São Carlos é uma empresa de renome na região de São Carlos, SP, Brazil. Especializada em exames de alta qualidade como Raio X, Ultrassonografia, Doppler e Ultrassom, o CADI São Carlos conta com uma equipe qualificada e equipamentos de última geração. Com foco em precisão e rapidez nos resultados, a empresa garante diagnósticos assertivos aos pacientes. Seguindo os padrões da UNIMED, o CADI é referência na região em diagnóstico por imagem, com excelência no atendimento e na qualidade dos exames realizados.",
+          "phone_primary": "(16) 3412-7210",
+          "phone_additional": "",
+          "website": "https://cadi.med.br/?gad_source=1&gad_campaignid=23260254927&gbraid=0AAAABB4uQojphm_IBQX9ppu1hLxvCueTw&gclid=CjwKCAiAybfLBhAjEiwAI0mBBrp_vNkSSxSwMmj9OHOhes1B6tpkKwHVeUal0mhh9uJw2MLLaKhLYRoCZ7oQAvD_BwE",
+          "address_full": "Rua Dona Alexandrina, 1717",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560290",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Centro de diagnóstico médico por imagem",
+          "categories_additional": [],
+          "hours": {
+            "sunday": {
+              "open": "00:00",
+              "close": "24:00"
+            },
+            "monday": {
+              "open": "00:00",
+              "close": "24:00"
+            },
+            "tuesday": {
+              "open": "00:00",
+              "close": "24:00"
+            },
+            "wednesday": {
+              "open": "00:00",
+              "close": "24:00"
+            },
+            "thursday": {
+              "open": "00:00",
+              "close": "24:00"
+            },
+            "friday": {
+              "open": "00:00",
+              "close": "24:00"
+            },
+            "saturday": {
+              "open": "00:00",
+              "close": "24:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/9816006609452524649",
+          "google_place_id": "ChIJC_ZeS1F3uJQR12BKRN6MblU",
+          "google_maps_uri": "https://maps.google.com/maps?cid=6156012626918400215",
+          "name": "Agência Pquadrado",
+          "description": "A Pquadrado Comunicação e Marketing é uma agência de marketing 360° localizada em São Carlos – SP, especialista em Google Meu Negócio, SEO local, tráfego pago (Google Ads e Meta Ads), branding e posicionamento de marca. Desenvolvemos estratégias personalizadas para empresas e negócios B2B que desejam vender mais, atrair clientes e fortalecer sua presença digital. Atuamos com criação de sites otimizados, gestão de campanhas, design gráfico, identidade visual e consultoria em marketing estratégico. Unimos criatividade, dados e tecnologia para transformar marcas em referências de mercado, com foco em autoridade, relacionamento e crescimento real para quem busca resultados mensuráveis e parcerias duradouras.",
+          "phone_primary": "(16) 99745-4555",
+          "phone_additional": "",
+          "website": "https://pquadrado.com.br/",
+          "address_full": "Passeio dos Flamboyants, 60",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13561352",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Marketing agency",
+          "categories_additional": [
+            "Advertising agency",
+            "Marketing consultant",
+            "Internet marketing service"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:30",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:30",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:30",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:30",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/9478965790974577739",
+          "google_place_id": "ChIJs4288Dx3uJQROhqZI7VAIdY",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15429684945078524474",
+          "name": "Mednucleo São Carlos - Clinica de Medicina Nuclear LTDA",
+          "description": "Localizado na Santa Casa de São Carlos, o Mednucleo é especializado em Medicina Nuclear, oferecendo mais de 100 procedimentos de alta precisão em cardiologia, oncologia, hematologia e neurologia. Atendemos pacientes pelo SUS, convênios e particulares, garantindo acesso a exames de qualidade superior. Nosso equipamento exclusivo com “duas cabeças” é o único da região, proporcionando imagens de alta resolução e tempo reduzido para a realização dos exames. Investimos em tecnologia de ponta e na revitalização do nosso espaço, incluindo uma nova sala de espera exclusiva, para um atendimento mais confortável e eficiente.\n\nComprometidos com a excelência e inovação, estamos dedicados a oferecer o melhor em diagnósticos por imagem.",
+          "phone_primary": "(16) 3509-1342",
+          "phone_additional": "(16) 3509-1110",
+          "website": "",
+          "address_full": "Rua Maestro João Seppe s/n (Atrás da Santa Casa)",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13561-180",
+          "address_country": "BR",
+          "address_neighborhood": "Jardim Paraíso",
+          "category_primary": "Centro de diagnóstico médico por imagem",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "tuesday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "wednesday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "thursday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "friday": {
+              "open": "07:00",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/15679156187328597517",
+          "google_place_id": "ChIJiX_TQ2r2zpQR6s7D-JNhR1o",
+          "google_maps_uri": "https://maps.google.com/maps?cid=6505275474921639658",
+          "name": "Tatiane Hernandes Arquitetura",
+          "description": "Com sede em São Paulo e mais de 23 anos de experiência, o escritório Tatiane Hernandes é especializado em projetos de arquitetura que unem design autoral, viabilidade técnica e soluções acessíveis. Nosso propósito é oferecer uma arquitetura de excelência. Trabalhamos com ética, criatividade e comprometimento, entregando projetos que unem estética, funcionalidade e responsabilidade. Nosso diferencial está no cuidado em cada detalhe, no atendimento humanizado e na busca constante por inovação e melhoria contínua. Oferecemos uma assessoria completa, que inclui: • Projetos arquitetônicos personalizados e completos; • Soluções eficientes para empreendimentos HIS, HMP, R2v; • Consultoria técnica especializada para construção",
+          "phone_primary": "(11) 93246-0425",
+          "phone_additional": "(11) 2371-6260, (11) 2371-5576",
+          "website": "http://www.tatianehernandes.com.br/",
+          "address_full": "avenida nova cantareira 1984",
+          "address_city": "São Paulo",
+          "address_state": "SP",
+          "address_postal_code": "02330-003",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Arquiteto",
+          "categories_additional": [
+            "Escritório de Arquitetura"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "tuesday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "wednesday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "thursday": {
+              "open": "08:30",
+              "close": "17:30"
+            },
+            "friday": {
+              "open": "08:30",
+              "close": "17:30"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/5516181768244974291",
+          "google_place_id": "ChIJXd-fPzV3uJQRYLgqY5duqcI",
+          "google_maps_uri": "https://maps.google.com/maps?cid=14026864110904981600",
+          "name": "NEOMED SAÚDE - Medicina e Segurança do Trabalho",
+          "description": "A NEOMED Saúde é referência em Medicina e Segurança do Trabalho em São Carlos – SP. Oferecemos assessoria e consultoria completa em segurança do trabalho, com foco em conformidade legal e bem-estar dos colaboradores. Atuamos com PCMSO, PGR, LTCAT, laudos de SST, ASO admissional, exame admissional e exame demissional. Realizamos audiometria, espirometria, ECG e exames laboratoriais, sempre priorizando a saúde do trabalhador. Também contamos com atendimento em medicina esportiva, promovendo prevenção e performance com responsabilidade.",
+          "phone_primary": "(16) 3415-6001",
+          "phone_additional": "(16) 99792-6737",
+          "website": "http://www.neomedsaude.com/",
+          "address_full": "Rua Paulino Botelho de Abreu Sampaio, 935",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13561-060",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Médico de medicina ocupacional",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "13:30",
+              "close": "17:00"
+            },
+            "tuesday": {
+              "open": "13:30",
+              "close": "17:00"
+            },
+            "wednesday": {
+              "open": "13:30",
+              "close": "17:00"
+            },
+            "thursday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "friday": {
+              "open": "13:30",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/1415494684513188537",
+          "google_place_id": "ChIJmVIJPF3xuJQRVge-5rXOsk8",
+          "google_maps_uri": "https://maps.google.com/maps?cid=5742879755506419542",
+          "name": "Seguralta Araraquara Corretora de Seguros",
+          "description": "Seguralta Corretora de Seguros é uma corretora especializada em seguros e consórcios, com soluções completas para proteger o que realmente importa. Oferecemos seguros automotivos, residenciais, empresariais, de vida, saúde, equipamentos, embarcações, obras e responsabilidade civil. Também trabalhamos com consórcios de imóveis, automóveis, serviços e agrícolas. Atendemos com excelência em Araraquara, na Rua João Vergara Gonzales, 125 – Fonte. Fale conosco e encontre o plano ideal para você.",
+          "phone_primary": "(16) 99702-5038",
+          "phone_additional": "(16) 3331-4410",
+          "website": "http://araraquara.seguralta.com.br/",
+          "address_full": "Rua João Vergara Gonzales, 125",
+          "address_city": "Araraquara",
+          "address_state": "SP",
+          "address_postal_code": "14802-419",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Agência de seguros",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "18:30"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/1962329624340089807",
+          "google_place_id": "ChIJHUQcVOC_uZQRhoklmaxR7Hw",
+          "google_maps_uri": "https://maps.google.com/maps?cid=9001659556952377734",
+          "name": "Kairos Estacionamento",
+          "description": "",
+          "phone_primary": "(16) 99281-3553",
+          "phone_additional": "",
+          "website": "http://www.kairosesteticaautomotiva.com.br/",
+          "address_full": "Rua Mantiqueira, 790",
+          "address_city": "Ribeirão Preto",
+          "address_state": "SP",
+          "address_postal_code": "14025600",
+          "address_country": "BR",
+          "address_neighborhood": "Alto Da Boa Vista",
+          "category_primary": "Lava-rápido",
+          "categories_additional": [],
+          "hours": {}
+        },
+        {
+          "google_location_id": "locations/14363545638448360314",
+          "google_place_id": "ChIJQ_0OhkrxuJQRp4awvYE0H7E",
+          "google_maps_uri": "https://maps.google.com/maps?cid=12762977600829163175",
+          "name": "Via Gás - Comarc",
+          "description": "Somos uma revendedora de gás em Araraquara-SP especializada em revenda de gás para atacado, domicílio e comércio. Oferecemos venda de gás P13, gás P20, gás P45, gás de cozinha, gás para empilhadeira e gás para restaurante, com entrega rápida e segura. Atendemos empresas, comércios e residências, garantindo gás barato, confiável e de qualidade. Nossa empresa de gás trabalha com botijão de gás homologado e entrega eficiente. Conte com a melhor revenda de gás da cidade!",
+          "phone_primary": "(16) 99207-9488",
+          "phone_additional": "(16) 3331-5616",
+          "website": "",
+          "address_full": "Av. Antônio Honorio Real, 844",
+          "address_city": "Araraquara",
+          "address_state": "SP",
+          "address_postal_code": "14804-409",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Fornecedor de gás butano",
+          "categories_additional": [],
+          "hours": {
+            "sunday": {
+              "open": "08:00",
+              "close": "12:00"
+            },
+            "monday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/9404841364963654796",
+          "google_place_id": "ChIJg_3LHyF3uJQR6nAmZIb_m7c",
+          "google_maps_uri": "https://maps.google.com/maps?cid=13230449283001905386",
+          "name": "Distribuidora PPA São Carlos",
+          "description": "Distribuidora PPA São Carlos - Soluções em Automação e Segurança\n\nA Distribuidora PPA São Carlos, na R. Enéas Camargo, 150 - Vila Monteiro (Gleba I), São Carlos - SP, é especialista em equipamentos de automação e segurança eletrônica. Oferecemos automatizadores de portas e portões, CFTV, sistemas de alarme, controles de acesso e muito mais, garantindo tecnologia avançada e confiabilidade.\n\nComo parte da rede PPA, referência no setor, atendemos residências, comércios e indústrias com soluções práticas e eficientes. Ligue para (16) 3368-3862 e descubra como podemos ajudar você!",
+          "phone_primary": "(16) 98142-5800",
+          "phone_additional": "(16) 3368-3862",
+          "website": "",
+          "address_full": "Rua Eneas de Camargo, 150",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560301",
+          "address_country": "BR",
+          "address_neighborhood": "Vila Monteiro",
+          "category_primary": "Fornecedor de sistema de segurança",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/5617019505062638816",
+          "google_place_id": "ChIJy53amvVXzpQRtBkNh1KmXv8",
+          "google_maps_uri": "https://maps.google.com/maps?cid=18401328000865737140",
+          "name": "Giuliana Odonto - Consultório Odontológico",
+          "description": "A Giuliana Odonto é uma clínica odontológica localizada na Avenida Paulista, em São Paulo, que une estética, tecnologia e cuidado. Sob a direção da Dra. Giuliana Sueyoshi, formada pela Universidade de São Paulo (USP), o atendimento é voltado para quem busca um sorriso bonito, saudável e natural. O foco da clínica está no alinhamento com alinhadores invisíveis, que oferecem conforto e discrição durante o uso, e na estética dental, com clareamento, resina e reabilitação funcional.\nAlém dos procedimentos estéticos, a clínica oferece limpeza dental, tratamento de canal, extração de siso e urgência odontológica 24h, garantindo suporte total para a saúde bucal. Cada caso é planejado respeitando as características e necessidade de cada paciente.",
+          "phone_primary": "(11) 98600-0611",
+          "phone_additional": "",
+          "website": "https://www.instagram.com/giulianaodonto/",
+          "address_full": "Condomínio Edifício Avenida Paulista",
+          "address_city": "São Paulo",
+          "address_state": "SP",
+          "address_postal_code": "01310-300",
+          "address_country": "BR",
+          "address_neighborhood": "Consolação",
+          "category_primary": "Clínica odontológica",
+          "categories_additional": [
+            "Dentista",
+            "Endodontista",
+            "Cirurgião dentista",
+            "Ortodontista",
+            "Dentista cosmético",
+            "Serviço dentário de emergência"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "20:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/10118000425809597677",
+          "google_place_id": "ChIJs46PNUO_uZQRYzBBrVY3Vcg",
+          "google_maps_uri": "https://maps.google.com/maps?cid=14435505026019438691",
+          "name": "Artportas Kit porta pronta madeira Venda e instalação kit porta pronta pormade direto da frabica 7x cartao",
+          "description": "A Artportas é uma loja de portas em Ribeirão Preto – SP especializada em soluções completas para residências e empresas. Oferecemos porta de madeira, porta de correr, porta pivotante, porta interna, porta externa, porta de entrada e kit porta pronta, sempre com batentes, guarnições, dobradiças e fechadura digital para garantir qualidade e durabilidade. Nossa equipe realiza instalação e montagem de portas com acabamento profissional, unindo praticidade e estilo. Se você procura porta de madeira maciça, porta de correr com trilho ou kits sob medida, a Artportas é a referência em loja de portas que alia excelência e atendimento personalizado.",
+          "phone_primary": "(16) 98194-2543",
+          "phone_additional": "",
+          "website": "https://www.artportasmarquinho.com.br/",
+          "address_full": "R. Pará, 807",
+          "address_city": "Ribeirão Preto",
+          "address_state": "SP",
+          "address_postal_code": "14055-010",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Loja de portas",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:30"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:30"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:30"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:30"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:30"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/6852624138057370034",
+          "google_place_id": "ChIJWefPNdc_mYARiS2Ldyv9O3w",
+          "google_maps_uri": "https://maps.google.com/maps?cid=8952027047460023689",
+          "name": "Ice Cream Equipment Specialists",
+          "description": "Ice Cream Equipment Specialist is your trusted source in Gainesville for premium ice cream, gelato, and paleta machines, molds, and freezers. We offer expert consulting, U. S. shipping, and demos by appointment. Contact: sales@ices. cool.",
+          "phone_primary": "(775) 283-8274",
+          "phone_additional": "",
+          "website": "http://www.ices.cool/",
+          "address_full": "2106 NW 67th Pl Ste 1",
+          "address_city": "Gainesville",
+          "address_state": "FL",
+          "address_postal_code": "32653",
+          "address_country": "US",
+          "address_neighborhood": "",
+          "category_primary": "Ice cream equipment supplier",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "16:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "16:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "16:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "16:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "16:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/17149484558490864367",
+          "google_place_id": "ChIJSSiyXYslwZQRCFXLJc8Ovug",
+          "google_maps_uri": "https://maps.google.com/maps?cid=16770858345229407496",
+          "name": "Paiva Trailers",
+          "description": "Paiva Trailers é especialista em trailers personalizados para quem busca qualidade, segurança e design funcional em Avaré – SP. Produzimos trailers para transporte de animais, inclusive com apartamento, trailers de camping, trailers para transporte agrícola, baús e carrocerias sob medida. Cada projeto é único, com layout exclusivo, tecnologia avançada e soluções sobre rodas que unem conforto e praticidade. Nosso compromisso é entregar trailers duráveis, versáteis e visualmente impactantes para transporte, lazer, loja itinerante ou studio móvel. Destaque seu negócio com um trailer feito sob medida.",
+          "phone_primary": "(14) 99880-7533",
+          "phone_additional": "",
+          "website": "https://www.paivatrailers.com.br/",
+          "address_full": "Av. Dr. Antônio Silvio Cunha Bueno, 525",
+          "address_city": "Avaré",
+          "address_state": "SP",
+          "address_postal_code": "18704-200",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Fabricante de trailer",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "tuesday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "wednesday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "thursday": {
+              "open": "07:00",
+              "close": "17:00"
+            },
+            "friday": {
+              "open": "07:00",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/527273562320728213",
+          "google_place_id": "ChIJ65-HxP12uJQRsZu1m9USdkA",
+          "google_maps_uri": "https://maps.google.com/maps?cid=4644920774328949681",
+          "name": "Casa do Serralheiro São Carlos",
+          "description": "Casa do Serralheiro São Carlos - Precisão, Inovação e Qualidade em Serralheria\n\nDesde 2001, a Casa do Serralheiro é referência em São Carlos, localizada na R. Monsenhor Alcindo Carlos Veloso Siqueira, 201, no Jardim São Paulo. Fornecemos produtos premium. Além de serviços como corte e dobra de metal e fabricação de perfis, agora contamos com tecnologia avançada de corte a laser, permitindo precisão em aço carbono (1 mm a 12 mm), inox (1 mm a 6 mm) e alumínio (1 mm a 3 mm).\n\nRealizamos desenhos personalizados e soluções para projetos industriais e acabamentos detalhados, sempre com fornecedores de primeira linha e atendimento personalizado. Oferecemos entregas gratuitas em São Carlos e região. Para mais informações, ligue (16) 3368-6799!",
+          "phone_primary": "(16) 99769-7062",
+          "phone_additional": "(16) 3368-1387",
+          "website": "https://casadoserralheirosaocarlos.com.br/?gad_source=1&gad_campaignid=21478077480&gbraid=0AAAAAqVZvK9Rc4I8_Uxarg19yzchOuUY3&gclid=CjwKCAiA55rJBhByEiwAFkY1QHSftfXjTyiXu5391-bMrXRRCrMM9PjKY-hY7lzG9e_XpxZ4ZyuQXBoCVpcQAvD_BwE",
+          "address_full": "Rua Monsenhor Alcindo Carlos Veloso Siqueira, 201",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13570-480",
+          "address_country": "BR",
+          "address_neighborhood": "Parque São José",
+          "category_primary": "Serralharia",
+          "categories_additional": [
+            "Loja de ferragens"
+          ],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "17:48"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "17:48"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "17:48"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "17:48"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "17:48"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/14015968080895838919",
+          "google_place_id": "ChIJc9iy-7BQVa4RTVRMyKVrbeY",
+          "google_maps_uri": "https://maps.google.com/maps?cid=16604045760959108173",
+          "name": "Negrini Irrigação e Jardinagem LTDA",
+          "description": "Temos o prazer de apresentar nosso serviço de Irrigação Automatizada.\nCom tecnologia de última geração, somos capazes de fornecer uma solução eficiente e econômica para suas necessidades de irrigação.\nCom automação avançada, somos capazes de controlar a irrigação de suas plantas de forma precisa e personalizada, levando em consideração fatores como o tipo de solo, o clima e a umidade do ar. Dessa forma, você pode economizar água e energia, além de garantir que suas plantas recebam a quantidade ideal de água.\nSe você está procurando uma solução eficiente e econômica para suas necessidades de irrigação, não hesite em entrar em contato conosco para saber mais sobre como a tecnologia de ponta",
+          "phone_primary": "(16) 99727-2279",
+          "phone_additional": "",
+          "website": "https://irmaosnegrini.com.br/",
+          "address_full": "135 Rua José Riga",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13565-560",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Serviço de jardinagem",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "18:30"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "18:30"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/6836914128932788891",
+          "google_place_id": "ChIJGRYNEnsPuJQRF9VP9HraNfc",
+          "google_maps_uri": "https://maps.google.com/maps?cid=17813384122753602839",
+          "name": "Milenio Comércio de Areia Especializada",
+          "description": "Seja bem-vindo(a) à Milenio Areias Especiais! Aqui você encontra areias de alta qualidade para diversas finalidades. Nossa linha inclui areia especial para abrasivos e refratários, com grãos arredondados e alta dureza, ideal para altas temperaturas.\nOferecemos também areia selecionada para filtros de piscina, garantindo uma filtragem eficiente e sem contaminantes. Para leitos fluidizados de caldeiras, nossa areia suporta até 1.600 graus. Temos areia de alto teor de sílica para tratamento de água e com pedregulhos selecionados para malhas ferroviárias. Nossa areia para argamassas é classificada em várias granulometrias, livre de umidade e contaminantes.\nEntre em contato conosco hoje mesmo, por telefone ou WhatsApp, e solicite um orçamento.",
+          "phone_primary": "(19) 3583-4246",
+          "phone_additional": "(19) 3583-1459",
+          "website": "http://www.milenioareias.com.br/",
+          "address_full": "Rua Elda Zaffalon Faria da Cunha, 707",
+          "address_city": "Descalvado",
+          "address_state": "São Paulo",
+          "address_postal_code": "13690-000",
+          "address_country": "BR",
+          "address_neighborhood": "Distrito Industrial Cosmo Fuzaro",
+          "category_primary": "Usina de processamento de areia",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "17:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "17:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "17:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "17:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/1078857871379935652",
+          "google_place_id": "ChIJ98yWgkTRupQRLksnXXKHXvk",
+          "google_maps_uri": "https://maps.google.com/maps?cid=17968948488513735470",
+          "name": "MercoTech",
+          "description": "A MercoTech é uma indústria química com larga produção e linha diversificada de produtos que atende todo o mercado. A associação entre a eficiência e a sustentabilidade faz da MercoTech uma empresa com foco em excelência, desde o atendimento primário até a entrega final de produtos. Investimos constantemente em pesquisa e qualificação do corpo técnico, atuando com um modelo de gestão sustentável, que respeita o meio ambiente e gerando projetos de colaboração contínua da população. Na MercoTech temos linhas completas para que sua empresa tenha as melhores soluções em produtos de limpeza industrial e comercial. Fabricamos desinfetantes, solventes, produtos para lavanderia, limpeza de pisos, automotiva, limpeza institucional, higiene geral",
+          "phone_primary": "(34) 3338-2200",
+          "phone_additional": "",
+          "website": "http://www.mercotech.com.br/",
+          "address_full": "Avenida Francisco Podboy, 1245",
+          "address_city": "Uberaba",
+          "address_state": "MG",
+          "address_postal_code": "38056-640",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Atacadista de produtos químicos industriais",
+          "categories_additional": [
+            "Fornecedor de produtos de limpeza"
+          ],
+          "hours": {
+            "monday": {
+              "open": "07:12",
+              "close": "17:00"
+            },
+            "tuesday": {
+              "open": "07:12",
+              "close": "17:00"
+            },
+            "wednesday": {
+              "open": "07:12",
+              "close": "17:00"
+            },
+            "thursday": {
+              "open": "07:12",
+              "close": "17:00"
+            },
+            "friday": {
+              "open": "07:12",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/6907679384506503450",
+          "google_place_id": "ChIJ7bgbbrdwuJQR-0IzFmvs68g",
+          "google_maps_uri": "https://maps.google.com/maps?cid=14477925371790705403",
+          "name": "Abias Imóveis",
+          "description": "Seja bem-vindo à Abias Imóveis! Prezamos acima de tudo pela excelência no atendimento aos nossos clientes e parceiros, buscando sempre entregar aquilo que nosso cliente precisa. Nosso objetivo é tornar o mercado imobiliário descomplicado e menos burocrático, fazendo com que toda negociação imobiliária seja transparente, fácil e objetiva para nosso cliente. Prezamos pela satisfação de todo serviço realizado. Nossos profissionais estão preparados para lhe atender da melhor maneira possível, sanando dúvidas e prontos para oferecer o melhor negócio. Se está procurando aluguel ou venda de casas, apartamento, terrenos ou qualquer outro tipo de imóvel em São Carlos e região, conte conosco!",
+          "phone_primary": "(16) 3371-5101",
+          "phone_additional": "",
+          "website": "http://www.abiasimoveis.com.br/",
+          "address_full": "Rua Miguel Petroni, 1245",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13562-190",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Imobiliária",
+          "categories_additional": [
+            "Agente imobiliário",
+            "Consultora de imóveis",
+            "Imobiliária de aluguel de condomínios"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/7940362868599316751",
+          "google_place_id": "ChIJw1KVJ4l5x5QR2gv7xLMBiwA",
+          "google_maps_uri": "https://maps.google.com/maps?cid=39126893378341850",
+          "name": "Via Gás - Brotas",
+          "description": "A Via Gás Brotas é referência em revenda de gás varejo e atacado em Brotas – SP, atendendo residências, comércios e indústrias. Trabalhamos com venda de gás para cozinha, gás para restaurante e gás para comércio em geral, oferecendo retirada no local e entrega a domicílio rápida e segura. Nossa revenda de gás também atende empresas que buscam gás a granel ou em botijões, com soluções completas para revenda de gás no atacado e varejo. Confiança, qualidade e atendimento ágil fazem da Via Gás Brotas sua melhor opção em venda de gás na região.",
+          "phone_primary": "(14) 99638-8481",
+          "phone_additional": "",
+          "website": "",
+          "address_full": "Rua Alberto Campana, 45",
+          "address_city": "Brotas",
+          "address_state": "SP",
+          "address_postal_code": "17380-000",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Companhia de gás",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "19:00"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "19:00"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "19:00"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "19:00"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "19:00"
+            },
+            "saturday": {
+              "open": "07:30",
+              "close": "19:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/5883684380927391",
+          "google_place_id": "ChIJK5AF-CV3uJQRhXG4hb6m4LQ",
+          "google_maps_uri": "https://maps.google.com/maps?cid=13033600658827669893",
+          "name": "Fukuhara Studio Digital",
+          "description": "Empresa familiar, fundada em 1959. Trabalhamos com venda de produtos relacionados a fotografia, como álbuns, porta-retratos, impressões fotográficas, fotos 3x4, para documentos variados, fotos para passaporte e visto. Nosso foco atualmente são fotos profissionais em estúdio. Fotografamos gestantes, recém nascidos (Newborn), acompanhamento mensal do bebê, fotos para perfil profissional, fotos de produtos, de animais e fotos comerciais, temos uma grande variedade em cenários e pacotes disponíveis para os bebês. Recentemente inauguramos nossa molduraria, enquadramos suas fotos com a medida e moldura que desejar.",
+          "phone_primary": "(16) 3374-1544",
+          "phone_additional": "(16) 99340-6949",
+          "website": "https://www.fukuharastudio.com.br/",
+          "address_full": "Rua Major José Inácio, 2381",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-161",
+          "address_country": "BR",
+          "address_neighborhood": "Centro",
+          "category_primary": "Estúdio de fotografia",
+          "categories_additional": [
+            "Impressões fotográficas",
+            "Fotógrafo",
+            "Gráfica",
+            "Loja de molduras",
+            "Estúdio de portfólio para modelos",
+            "Serviço de restauração de fotos"
+          ],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "13:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/4580098106806113265",
+          "google_place_id": "ChIJiUfuDrhwuJQR5SM6cWZdiig",
+          "google_maps_uri": "https://maps.google.com/maps?cid=2921250002870871013",
+          "name": "Academia Vida",
+          "description": "Transforme sua rotina na melhor Academia de São Carlos, tornando-se referência em musculação, natação, pilates e treinamento funcional. Nossa academia oferece um ambiente acolhedor, com piscina tratada com ozônio, equipamentos modernos e uma equipe de profissionais certificados. As aulas personalizadas atendem crianças, adultos e atletas, buscando melhorar o desempenho físico, cuidar da saúde mental e alcançar objetivos fitness. Desde 2006, somos a escolha daqueles que valorizam qualidade de vida, bem-estar e resultados consistentes. Agende uma aula experimental gratuita e junte-se à nossa comunidade saudável em São Carlos!",
+          "phone_primary": "(16) 99991-7227",
+          "phone_additional": "",
+          "website": "https://academiavida.com.br/",
+          "address_full": "Rua Rosalino Bellini, 368",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13564050",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Academia",
+          "categories_additional": [
+            "Estúdio de pilates",
+            "Escola de natação",
+            "Local para natação",
+            "Academia de artes marciais",
+            "Escola de natação para bebês"
+          ],
+          "hours": {
+            "monday": {
+              "open": "06:00",
+              "close": "21:00"
+            },
+            "tuesday": {
+              "open": "06:00",
+              "close": "21:00"
+            },
+            "wednesday": {
+              "open": "06:00",
+              "close": "21:00"
+            },
+            "thursday": {
+              "open": "06:00",
+              "close": "21:00"
+            },
+            "friday": {
+              "open": "06:00",
+              "close": "21:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "11:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/171620185316694973",
+          "google_place_id": "ChIJKZJU-yR3uJQR5CH7cRkCLIw",
+          "google_maps_uri": "https://maps.google.com/maps?cid=10100450372594901476",
+          "name": "IMUNIBEM CONTROLE DE PRAGAS",
+          "description": "A Imunibem Dedetizadora é especialista em controle de pragas urbanas em São Carlos – SP, oferecendo desinsetização, descupinização, desratização e controle de pombos, baratas, cupins, formigas, ratos e escorpiões. Utilizamos técnicas seguras e eficientes para eliminar infestações em residências, empresas e indústrias. Também realizamos sanitização de ambientes fechados, prevenindo bactérias, ácaros e mofo, além da limpeza e desinfecção de reservatórios de água. 📍 Rua Conde do Pinhal 1534 - Centro, São Carlos - SP 📞 (16) 99233-5595 🔹 Serviços certificados e seguros 🔹 Atendimento rápido e eficaz 🔹 Soluções personalizadas Elimine pragas com quem entende! Solicite um orçamento agora.",
+          "phone_primary": "(16) 99233-5595",
+          "phone_additional": "(16) 3371-3408",
+          "website": "http://www.imunibem.com.br/",
+          "address_full": "Rua Conde do Pinhal, 1534, Avenida Comendador Alfredo Maffei",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-648",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Dedetizadora",
+          "categories_additional": [
+            "Serviço de controle de pássaros"
+          ],
+          "hours": {
+            "monday": {
+              "open": "13:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "13:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "13:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "13:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "13:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/3252954557795680052",
+          "google_place_id": "ChIJnTrCvlJ3uJQRUFg5whTbzR8",
+          "google_maps_uri": "https://maps.google.com/maps?cid=2291728667605817424",
+          "name": "SG Soluções Científicas",
+          "description": "A SG Soluções Científicas é um laboratório científico em São Carlos – SP especializado em serviços laboratoriais de alta precisão. Atuamos em análises e ensaios laboratoriais, caracterização química em materiais, determinação de metais pesados, análise de contaminantes elementares em fármacos e alimentos, além de oferecer cursos, treinamentos e consultoria. Nosso laboratório de química analítica é referência em análises elementares e orgânicas, garantindo qualidade e inovação para indústrias, pesquisa e desenvolvimento.",
+          "phone_primary": "(16) 99370-3160",
+          "phone_additional": "(16) 98163-3699",
+          "website": "http://www.sgcientifica.com.br/",
+          "address_full": "Rua Belarmino Indalécio de Souza, 158",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-292",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Laboratório de bioquímica",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "17:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "17:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "17:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "17:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/15292599613144549987",
+          "google_place_id": "ChIJyxx42S93uJQRIdUGveAf1dk",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15696487126374208801",
+          "name": "Colégio São Carlos",
+          "description": "Colégio São Carlos - Tradição e Excelência em Educação desde 1905\n\nDesde 1905, a escola particular Colégio São Carlos é referência em educação de qualidade em São Carlos, SP, na R. Episcopal, 1859. Com tradição e inovação, formamos cidadãos preparados para construir um futuro melhor. Contamos com professores altamente qualificados, ensino de excelência e valores humanos essenciais.\n\nNossa infraestrutura completa inclui piscina aquecida, quadras poliesportivas e espaços para atividades como karatê, dança e música. O programa bilíngue inicia no Infantil 2 e vai até o 7º ano. Oferecemos atividades gratuitas como reforço didático e esportes, promovendo uma formação integral. Escolha o Colégio São Carlos para o futuro educacional do seu filho!",
+          "phone_primary": "(16) 3362-5044",
+          "phone_additional": "(16) 3374-2044, (16) 3374-2053",
+          "website": "http://www.colsaocarlos.com.br/",
+          "address_full": "Rua Episcopal, 1859",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-580",
+          "address_country": "BR",
+          "address_neighborhood": "Centro",
+          "category_primary": "Escola particular",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:10",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "07:10",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "07:10",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "07:10",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "07:10",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/5268781651281233848",
+          "google_place_id": "ChIJP5pL4vF3yJQRpZoYeYu_w8Y",
+          "google_maps_uri": "https://maps.google.com/maps?cid=14322501845721324197",
+          "name": "Devant - Soluções Tributárias",
+          "description": "A Devant – Soluções Tributárias é especialista em recuperação de créditos tributários, ajudando empresas a recuperar valores pagos indevidamente e fortalecer o caixa de forma lícita e transparente. Combinando experiência de mercado e inteligência tributária, oferecemos planejamento tributário, restituição e compensação de impostos, auditoria fiscal mensal e classificação de produtos (CFOP e NCM). Nosso objetivo é reduzir a carga tributária, garantir segurança nas operações e transformar a gestão fiscal em uma vantagem competitiva para o crescimento sustentável do seu negócio.",
+          "phone_primary": "(19) 3351-0941",
+          "phone_additional": "(19) 99135-6270",
+          "website": "http://www.devantsolucoes.com.br/",
+          "address_full": "Rua Benedita Nogueira, 425",
+          "address_city": "Araras",
+          "address_state": "SP",
+          "address_postal_code": "13600-120",
+          "address_country": "BR",
+          "address_neighborhood": "Centro",
+          "category_primary": "Consultoria empresarial",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "17:30"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "17:30"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "17:30"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "17:30"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/4007352830074316509",
+          "google_place_id": "ChIJm4CP-t53uJQRG16-EpR8ohw",
+          "google_maps_uri": "https://maps.google.com/maps?cid=2063348554700578331",
+          "name": "TJM Ar Condicionado",
+          "description": "TJM Climatização | Ar Condicionado em São Carlos – SP\n\nA TJM Climatização é referência em instalação de ar condicionado, manutenção de ar condicionado, limpeza de ar condicionado, higienização de ar condicionado e desinstalação de ar condicionado em São Carlos – SP. Atendemos residências, comércios e empresas com equipe treinada, equipamentos modernos e técnica segura para eliminar sujeira, fungos e bactérias, garantindo ar mais puro.\n✅ Economia de energia\n✅ Ar limpo e saudável todos os dias\n✅ Mais durabilidade para seu ar condicionado\n✅ Conforto térmico ideal em qualquer ambiente\nAplicações práticas: casas, apartamentos, consultórios, escritórios e clínicas.\n\n📍 R. Oswaldo Denari, 916 A – São Carlos – SP 📞 (16) 99216-7701",
+          "phone_primary": "(16) 99216-7701",
+          "phone_additional": "",
+          "website": "http://tjmclimatizacao.com.br/",
+          "address_full": "Rua Oswaldo Denari 916 A",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13568-600",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Serviço de conserto de aparelhos de ar-condicionado",
+          "categories_additional": [
+            "Prestador de serviços de climatização"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/1131688312356883676",
+          "google_place_id": "ChIJrYG3N4p3uJQRk4fH6g-j84k",
+          "google_maps_uri": "https://maps.google.com/maps?cid=9940468091295598483",
+          "name": "Arte Arquitetura e Construção",
+          "description": "A Arte Arquitetura e Construção é um escritório de arquitetura em São Carlos – SP, especializado em projeto arquitetônico residencial, comercial e de interiores. Atuamos com execução de obra, design de interiores e modelagem 3D, unindo estética, funcionalidade e viabilidade. Valorizamos a sustentabilidade na construção, o uso de materiais de construção eficientes e o aproveitamento da iluminação natural. Entregamos soluções completas, do estudo inicial à obra finalizada, com foco em inovação e qualidade.",
+          "phone_primary": "(16) 99723-6442",
+          "phone_additional": "",
+          "website": "https://www.instagram.com/arte.arquiteturaeconstrucao?igsh=chj6emy3etb3cjnw",
+          "address_full": "Rua Jesuíno de Arruda 2610 sala 1",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-642",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Arquiteto",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "20:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/2997748653778967622",
+          "google_place_id": "ChIJbz-cWNJ3yJQRmzUjYMAtkOQ",
+          "google_maps_uri": "https://maps.google.com/maps?cid=16469714141563794843",
+          "name": "D22 SEGUROS",
+          "description": "A D22 Seguros é uma corretora de seguros em Araras – SP, fundada em 2024, especializada em oferecer proteção completa para pessoas e empresas. Atuamos com diversas seguradoras parceiras, garantindo a apólice de seguro mais adequada em preço e cobertura. Nossos corretores de seguros estão preparados para orientar em cada etapa, da cotação ao sinistro, sempre com atendimento ágil e digital. Oferecemos seguro de vida, seguro escolar, seguro automóvel, seguro residencial, seguro empresarial, seguro garantia, seguro saúde, seguro de bicicleta, seguro de celular, seguro de moto elétrica, seguro de moto, seguro viagem e seguro fiança. Com a D22 Seguros, você tem confiança, tranquilidade e segurança em um só lugar.",
+          "phone_primary": "(19) 99987-6615",
+          "phone_additional": "",
+          "website": "https://wa.me/5519999876615",
+          "address_full": "R. Benedita Nogueira, 425 - 2b",
+          "address_city": "Araras",
+          "address_state": "SP",
+          "address_postal_code": "13600-120",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Agência de seguros",
+          "categories_additional": [
+            "Corretor de seguros"
+          ],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "17:45"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "17:45"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "17:45"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "17:45"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "17:45"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/17171079465087125089",
+          "google_place_id": "ChIJhxUOi9V2uJQRPp4DL4lcR7s",
+          "google_maps_uri": "https://maps.google.com/maps?cid=13494856552708021822",
+          "name": "Supergasbras",
+          "description": "Especializada na venda de gás em São Carlos-SP, nossa revendedora de gás oferece gás de cozinha com entrega rápida e segura. Trabalhamos com Gás P13, Gás P20 e Gás P45, atendendo residências e comércios com gás domiciliar de qualidade. Somos uma distribuidora de gás autorizada, referência como empresa de gás na cidade. Com botijão sempre revisado, garantimos segurança no uso e agilidade na entrega de gás. Buscando gás barato com confiança? Conte com a gente! Aqui você encontra praticidade, preço justo e o suporte de uma revenda séria. Solicite já seu botijão de gás!",
+          "phone_primary": "(16) 99703-7293",
+          "phone_additional": "(16) 3413-0282",
+          "website": "https://www.supergasbras.com.br/",
+          "address_full": "Av. Comendador Alfredo Maffei, 3355",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13561-270",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Companhia de gás",
+          "categories_additional": [],
+          "hours": {
+            "sunday": {
+              "open": "08:00",
+              "close": "13:00"
+            },
+            "monday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/8742660890469580278",
+          "google_place_id": "ChIJnR8XjGN3uJQRM_ZyBKQl5dY",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15484824280162825779",
+          "name": "Rápido São Carlos",
+          "description": "",
+          "phone_primary": "(16) 98264-0015",
+          "phone_additional": "(16) 3371-8373",
+          "website": "http://www.rapidosaocarlos.com.br/",
+          "address_full": "Rua Mário Sebim, 41",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13568-793",
+          "address_country": "BR",
+          "address_neighborhood": "Residencial Itamarati",
+          "category_primary": "Serviço de transporte",
+          "categories_additional": [],
+          "hours": {}
+        },
+        {
+          "google_location_id": "locations/787913842978902466",
+          "google_place_id": "ChIJAzU2iXp3uJQRhLuc9DCMq0U",
+          "google_maps_uri": "https://maps.google.com/maps?cid=5020260351524780932",
+          "name": "Absoluto Costumes",
+          "description": "A Absoluto Costumes é a principal referência em aluguel de roupas formais em São Carlos – SP. Oferecemos trajes sofisticados para festas, eventos, formaturas, casamentos, aniversários e qualquer ocasião que exija um look formal de alta qualidade. Com um vasto acervo de ternos, smokings, vestidos e acessórios, garantimos que você estará impecável em seu evento. Somos reconhecidos pela nossa autoridade no mercado e atendimento personalizado, proporcionando a melhor experiência na escolha do seu traje. 📍 Rua Maj. José Inácio, 2679 - Centro, São Carlos - SP 📞 (16) 99304-6765",
+          "phone_primary": "(16) 99304-6765",
+          "phone_additional": "",
+          "website": "https://wa.me/5516993046765",
+          "address_full": "Rua major José Inácio 2679",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560161",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Aluguel de roupa formal",
+          "categories_additional": [
+            "Loja de vestidos de noiva",
+            "Loja de roupas para ocasiões formais"
+          ],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "13:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/11100123520114386827",
+          "google_place_id": "ChIJB_H4aKNwuJQR6XJpJo3RfDM",
+          "google_maps_uri": "https://maps.google.com/maps?cid=3710070597211484905",
+          "name": "Piassa Restaurante",
+          "description": "O Piassa Restaurante é destaque em São Carlos – SP para quem busca comida brasileira com sabor de verdade. Servimos prato feito, marmitex e marmitex com churrasco, além de oferecer feijoada, suco natural e outras opções no sistema de almoço no local com cardápio variado e toque de chef de cozinha. Atendemos tanto no salão quanto por delivery de comida, com pedidos via iFood ou retirada. Uma excelente escolha para quem valoriza praticidade sem abrir mão do sabor.\nExperimente o Piassa e sinta o gosto da comida feita com carinho!",
+          "phone_primary": "(16) 3376-1153",
+          "phone_additional": "(16) 3413-1896",
+          "website": "https://piassa.delmatchcardapio.com/",
+          "address_full": "Rua Antônio Carlos de Ferraz Salles,",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13562190",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Restaurante self-service",
+          "categories_additional": [
+            "Restaurante",
+            "Churrascaria"
+          ],
+          "hours": {
+            "monday": {
+              "open": "11:00",
+              "close": "14:30"
+            },
+            "tuesday": {
+              "open": "11:00",
+              "close": "14:30"
+            },
+            "wednesday": {
+              "open": "11:00",
+              "close": "14:30"
+            },
+            "thursday": {
+              "open": "11:00",
+              "close": "14:30"
+            },
+            "friday": {
+              "open": "11:00",
+              "close": "14:30"
+            },
+            "saturday": {
+              "open": "11:00",
+              "close": "14:30"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/11770044305554185357",
+          "google_place_id": "ChIJVf8cZtm_uZQRAai4wzzeLH0",
+          "google_maps_uri": "https://maps.google.com/maps?cid=9019828506279323649",
+          "name": "Clínica Acolhendo Emoções",
+          "description": "A Clínica Acolhendo Emoções é uma clínica de saúde mental em Ribeirão Preto – SP, especializada em psicanálise e com suporte psiquiátrico integrado. Oferecemos atendimento presencial e online para adultos, adolescentes e casais, com foco em acolhimento emocional, autoconhecimento e qualidade de vida. Atuamos no tratamento de traumas, ansiedade, depressão, luto, abuso emocional e baixa autoestima. Nosso trabalho é pautado na escuta qualificada, na ética e no respeito à individualidade. Proporcionamos um espaço terapêutico seguro e transformador, com psicoterapia e orientação familiar.",
+          "phone_primary": "(16) 98124-9081",
+          "phone_additional": "",
+          "website": "https://www.clinicaacolhendoemocoes.com.br/",
+          "address_full": "Rua Joao Penteado, 981",
+          "address_city": "Ribeirão Preto",
+          "address_state": "SP",
+          "address_postal_code": "14025-010",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Clínica de saúde mental",
+          "categories_additional": [
+            "Psicólogo",
+            "Terapeuta psicossocial"
+          ],
+          "hours": {
+            "monday": {
+              "open": "13:00",
+              "close": "20:00"
+            },
+            "tuesday": {
+              "open": "13:00",
+              "close": "20:00"
+            },
+            "wednesday": {
+              "open": "13:00",
+              "close": "20:00"
+            },
+            "thursday": {
+              "open": "13:00",
+              "close": "20:00"
+            },
+            "friday": {
+              "open": "13:00",
+              "close": "20:00"
+            },
+            "saturday": {
+              "open": "13:00",
+              "close": "17:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/5805115518158628828",
+          "google_place_id": "ChIJGU5LRsp3uJQRoxHkH0Ye8cU",
+          "google_maps_uri": "https://maps.google.com/maps?cid=14263214781390655907",
+          "name": "OTTO Central de Entregas Rápidas",
+          "description": "A OTTO é uma empresa de entregas por aplicativo. A Otto Mobi é especialista em logística urbana em São Carlos – SP, conectando empresas a motoboys e entregadores autônomos para entregas rápidas e seguras.",
+          "phone_primary": "(16) 99100-0357",
+          "phone_additional": "",
+          "website": "https://ottoentregas.com/",
+          "address_full": "Rua Dona Alexandrina, 867",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560290",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Serviço de entregas expresso",
+          "categories_additional": [
+            "Serviço de entrega"
+          ],
+          "hours": {
+            "sunday": {
+              "open": "08:00",
+              "close": "24:00"
+            },
+            "monday": {
+              "open": "08:00",
+              "close": "24:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "24:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "24:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "24:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "24:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "24:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/5767812641328143790",
+          "google_place_id": "ChIJIZXJOOJ2uJQRr3BDxc8SL9A",
+          "google_maps_uri": "https://maps.google.com/maps?cid=15001229567371473071",
+          "name": "Casa Nossa Materiais para Construção",
+          "description": "A Casa Nossa Materiais para Construção é referência em materiais de construção em São Carlos – SP, oferecendo materiais elétricos, hidráulicos, louças, metais, argamassa e utilitários domésticos. Trabalhamos com produtos de qualidade e atendimento especializado, garantindo as melhores soluções para sua obra ou reforma. Venha conferir nossa variedade de materiais para construção e encontre tudo o que precisa em um só lugar! 📍 Endereço: R. Maj. Manoel Antônio de Mattos, 195 - Jardim Ricetti, São Carlos - SP 📞 Contato: (16) 3368-4109 🏗️ Tudo para sua construção ou reforma com o melhor custo-benefício!",
+          "phone_primary": "(16) 3368-4109",
+          "phone_additional": "(16) 99187-0027",
+          "website": "https://wa.me/16991870027",
+          "address_full": "Rua Major Manoel Antônio de Mattos, 195",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-831",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Fornecedor de materiais de construção",
+          "categories_additional": [],
+          "hours": {
+            "sunday": {
+              "open": "08:00",
+              "close": "12:00"
+            },
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "15:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/17389669757886620560",
+          "google_place_id": "ChIJ28Zg29x3uJQRDO02g7s0Dcs",
+          "google_maps_uri": "https://maps.google.com/maps?cid=14631408744361553164",
+          "name": "Ampère São Carlos - Academia de Eletroestimulação",
+          "description": "Ampère São Carlos - Resultados com Eletroestimulação em Apenas 20 Minutos A Ampère São Carlos, localizada na R. Mal. Deodoro, 1883 - b, Centro, São Carlos - SP, é a academia ideal para quem busca eficiência e resultados rápidos. Especializados em treinamento com eletroestimulação muscular (EMS), oferecemos sessões de apenas 20 minutos, que proporcionam alta performance, ganho de força, queima de gordura e melhoria da postura. Com tecnologia avançada e acompanhamento personalizado, ajudamos você a conquistar seus objetivos de forma prática e segura. 📞 Agende sua sessão pelo telefone (16) 99714-9924 e experimente a inovação no mundo fitness com a Ampère São Carlos!",
+          "phone_primary": "(16) 99714-9924",
+          "phone_additional": "",
+          "website": "https://amperefit.com.br/unidade-sao-carlos/",
+          "address_full": "Rua Marechal Deodoro, 1883",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-200",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Gym",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "14:00",
+              "close": "20:00"
+            },
+            "tuesday": {
+              "open": "14:00",
+              "close": "20:00"
+            },
+            "wednesday": {
+              "open": "14:00",
+              "close": "20:00"
+            },
+            "thursday": {
+              "open": "14:00",
+              "close": "20:00"
+            },
+            "friday": {
+              "open": "14:00",
+              "close": "20:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/777524299976418914",
+          "google_place_id": "ChIJLU4G6iR3uJQR8WFdOrGP1Tk",
+          "google_maps_uri": "https://maps.google.com/maps?cid=4167395021552443889",
+          "name": "TAIKAI Gastronomia Oriental",
+          "description": "O TAIKAI Gastronomia Oriental é o restaurante japonês ideal para quem busca uma verdadeira imersão na comida japonesa em São Carlos – SP. Com um cardápio completo que vai do sushi ao temaki, passando por sashimi, uramaki, nigiri, hot roll e pratos quentes, oferecemos uma experiência autêntica e saborosa. Ambiente acolhedor, ingredientes frescos e preparo artesanal fazem do TAIKAI a escolha certa para almoço, jantar ou rodízio japonês. Faça seu pedido online agora. R. Nove de Julho, 2133 – Centro, São Carlos – SP Telefone: (16) 98803-7777",
+          "phone_primary": "(16) 98803-7777",
+          "phone_additional": "",
+          "website": "http://taikaigastronomiaoriental.com.br/",
+          "address_full": "Rua 9 de Julho 2133",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560042",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Restaurante japonês",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "18:00",
+              "close": "23:00"
+            },
+            "tuesday": {
+              "open": "18:00",
+              "close": "23:00"
+            },
+            "wednesday": {
+              "open": "18:00",
+              "close": "23:00"
+            },
+            "thursday": {
+              "open": "18:00",
+              "close": "23:00"
+            },
+            "friday": {
+              "open": "18:00",
+              "close": "23:00"
+            },
+            "saturday": {
+              "open": "18:00",
+              "close": "23:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/18426877304981284818",
+          "google_place_id": "ChIJF331c0W_uZQRp-4tW_O49ew",
+          "google_maps_uri": "https://maps.google.com/maps?cid=17074756917591404199",
+          "name": "EXTINSET CONTROLE DE PRAGAS URBANAS",
+          "description": "A EXTINSET® é uma Empresa Profissional em Controle de Pragas Urbanas, atuamos no mercado há mais de 35 anos. Utilizamos somente inseticidas que ofereçam maior segurança e que sejam eficientes no controle das pragas infestantes.",
+          "phone_primary": "(16) 98134-8022",
+          "phone_additional": "",
+          "website": "https://www.extinset.com.br/",
+          "address_full": "R. Pinheiro Machado, 652",
+          "address_city": "Ribeirão Preto",
+          "address_state": "SP",
+          "address_postal_code": "14080550",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Dedetizadora",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "07:30",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/11272613479303198958",
+          "google_place_id": "ChIJZ4fyBdxNmAAR-_TFVJfrP-8",
+          "google_maps_uri": "https://maps.google.com/maps?cid=17239756933792396539",
+          "name": "Terrazo Imóveis | Compra, Venda e Aluguel em Teresópolis.",
+          "description": "A Terrazo Imóveis é a imobiliária em Teresópolis – RJ ideal para quem busca compra de apartamentos, compra de casa, compra de terreno ou venda de imóveis com segurança. Atuamos com aluguel de imóvel, venda de casa, venda de terreno e oferecemos avaliação de imóveis precisa e profissional. Se você procura um corretor de imóveis confiável para comprar, vender ou alugar, fale com a Terrazo. Temos ampla experiência no mercado e opções de apartamento, casa e terreno que atendem diferentes perfis. Somos a imobiliária em Teresópolis que conecta você ao imóvel ideal.",
+          "phone_primary": "(21) 97559-7269",
+          "phone_additional": "(21) 3726-0334",
+          "website": "http://www.terrazoimoveis.com.br/",
+          "address_full": "Rua Heitor de Moura Estevão, 194",
+          "address_city": "Teresópolis",
+          "address_state": "RJ",
+          "address_postal_code": "25953090",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Imobiliária",
+          "categories_additional": [
+            "Agente imobiliário",
+            "Escola para corretores de imóveis",
+            "Consultora de imóveis",
+            "Imobiliária de aluguel de condomínios",
+            "Corretora de aluguel de imóveis",
+            "Imobiliária de aluguéis por temporada",
+            "Agência de imóveis comerciais"
+          ],
+          "hours": {
+            "sunday": {
+              "open": "09:00",
+              "close": "13:00"
+            },
+            "monday": {
+              "open": "09:00",
+              "close": "18:30"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "18:30"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "18:30"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "18:30"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "18:30"
+            },
+            "saturday": {
+              "open": "09:00",
+              "close": "16:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/13224517788694758709",
+          "google_place_id": "ChIJJ9Rb7Ah3uJQRuFQFGYNsgR8",
+          "google_maps_uri": "https://maps.google.com/maps?cid=2270214997487735992",
+          "name": "Energy Brasil São Carlos",
+          "description": "A Energy Brasil São Carlos é especialista em energia solar e energia fotovoltaica, oferecendo soluções sustentáveis para economia e eficiência energética. Trabalhamos com painéis solares, placas fotovoltaicas, aquecedores solares, carregadores de veículos elétricos e sistemas de energia elétrica solar, proporcionando redução na conta de luz e maior autonomia energética. 📍 Endereço: R. Maj. Manoel Antônio de Mattos, 195B - Vila Monteiro (Gleba I), São Carlos - SP 📞 Contato: (16) 99790-5598 💡 Invista em energia renovável e reduza seus custos com energia solar em São Carlos – SP!",
+          "phone_primary": "(16) 99790-5598",
+          "phone_additional": "",
+          "website": "https://www.energybrasilsolar.com.br/simulacao/",
+          "address_full": "Rua Major Manoel Antonio de Mattos 195B",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560831",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Fornecedor de equipamentos a energia solar",
+          "categories_additional": [
+            "Empresa de energia solar",
+            "Serviço de energia solar"
+          ],
+          "hours": {
+            "sunday": {
+              "open": "08:00",
+              "close": "12:00"
+            },
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "15:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/13060631588765508053",
+          "google_place_id": "ChIJu6afRkUf35QRTmnyDvre2RI",
+          "google_maps_uri": "https://maps.google.com/maps?cid=1358361928202873166",
+          "name": "Imobiliaria Habitual",
+          "description": "Somos uma imobiliária especializada na região Oeste de Blumenau/SC. Acreditamos que excelência não está em \"vender tudo\", mas sim em conhecer profundamente o mercado em que atuamos. Por isso, optamos por um modelo de negócio focado, com atuação estratégica e segmentada. Nossa presença se destaca em sete bairros: Água Verde, Velha, Velha Central, Salto Weissbach, Escola Agrícola, Passo Manso e Vila Nova. São essas regiões que conhecemos com profundidade, entendemos seu perfil, seu potencial e as pessoas que nelas vivem. Mais do que corretores de imóveis, somos especialistas em entender sonhos, planos e momentos de vida. Por isso, oferecemos soluções sob medida para quem busca mais do que um imóvel, busca um lugar para viver com propósito.",
+          "phone_primary": "(47) 3330-1228",
+          "phone_additional": "(47) 99611-3559",
+          "website": "http://www.imobiliariahabitual.com.br/",
+          "address_full": "Hercilio Romão Soares, 175",
+          "address_city": "Blumenau",
+          "address_state": "SC",
+          "address_postal_code": "89041-020",
+          "address_country": "BR",
+          "address_neighborhood": "Velha",
+          "category_primary": "Imobiliária",
+          "categories_additional": [
+            "Consultora de imóveis",
+            "Imobiliária de aluguéis por temporada"
+          ],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/4325832773944142058",
+          "google_place_id": "ChIJgfdOBI56uJQRGWXtKkKPcjk",
+          "google_maps_uri": "https://maps.google.com/maps?cid=4139528521857721625",
+          "name": "Styllo Gesso",
+          "description": "Nossa empresa é especializada em oferecer soluções completas em drywall e gesso para todos os tipos de projetos e ambientes. Com uma equipe de profissionais qualificados, realizamos serviços de instalação, acabamento e manutenção de drywall, gesso e gesso 3D. Além disso, oferecemos opções de acabamento em gesso e sanca iluminada para agregar sofisticação e elegância aos espaços. Com foco na qualidade e satisfação dos clientes, estamos sempre em busca de inovações e técnicas para garantir resultados impecáveis. Conte conosco para transformar seu ambiente com praticidade e estilo!",
+          "phone_primary": "(16) 99710-7705",
+          "phone_additional": "",
+          "website": "https://www.styllogesso.com.br/",
+          "address_full": "Avenida Clemente Talarico, 180",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13563882",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Empreiteira de serviços com gesso",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "13:00",
+              "close": "17:30"
+            },
+            "tuesday": {
+              "open": "13:00",
+              "close": "17:30"
+            },
+            "wednesday": {
+              "open": "13:00",
+              "close": "17:30"
+            },
+            "thursday": {
+              "open": "13:00",
+              "close": "17:30"
+            },
+            "friday": {
+              "open": "13:00",
+              "close": "17:30"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/16522098027062624528",
+          "google_place_id": "ChIJl5805gu_uZQR23ft2jm03gY",
+          "google_maps_uri": "https://maps.google.com/maps?cid=495031169636464603",
+          "name": "Kairos Estética Automotiva Ribeirão Preto",
+          "description": "A Kairos Estética Automotiva é referência em estética automotiva em Ribeirão Preto – SP. Oferecemos serviços de lava rápido, lavagem de carro, encerramento, polimento, vitrificação, higienização de bancos, higienização de carro, ozonização, oxi-sanitização e lavagem a cera. Nosso atendimento é especializado em deixar seu carro limpo, protegido e com brilho intenso. Trabalhamos com lavagem detalhada para remover sujeiras profundas e garantir o melhor resultado para seu veículo. Se o seu carro está sujo ou precisa de cuidados especiais, conte com a excelência da Kairos Estética Automotiva.",
+          "phone_primary": "(16) 99281-3553",
+          "phone_additional": "",
+          "website": "https://www.instagram.com/kairosesteticaautomotivarp/",
+          "address_full": "Rua Mantiqueira 790",
+          "address_city": "Ribeirão Preto",
+          "address_state": "SP",
+          "address_postal_code": "14025-600",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Lava-rápido",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "08:00",
+              "close": "18:00"
+            },
+            "saturday": {
+              "open": "08:00",
+              "close": "12:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/12941491983374690764",
+          "google_place_id": "ChIJ-X2kdV5xuJQRSn3Hr5qk7uU",
+          "google_maps_uri": "https://maps.google.com/maps?cid=16568361063423638858",
+          "name": "Via Gás",
+          "description": "Somos especialistas na revenda de gás no varejo em São Carlos-SP, com foco no atendimento a comércios e residências que utilizam gás de cozinha de forma frequente. Trabalhamos com botijão de gás de 13kg e botijão de gás de 45kg, ideais para quem precisa de gás para uso doméstico, gás para restaurante, gás para lanchonete ou qualquer outro tipo de negócio. Nossa revendedora de gás oferece entrega de botijão de gás a domicílio ou opção de retirada na loja, tudo com segurança, agilidade e botijões sempre lacrados. Se você está buscando uma empresa de gás confiável, com botijão de gás barato, atendimento eficiente e total compromisso com o cliente, fale com a nossa distribuidora de gás.",
+          "phone_primary": "(16) 98167-1668",
+          "phone_additional": "",
+          "website": "",
+          "address_full": "Rua Frei Junípero Serra, 76",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13562-230",
+          "address_country": "BR",
+          "address_neighborhood": "",
+          "category_primary": "Companhia de gás",
+          "categories_additional": [],
+          "hours": {
+            "sunday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "monday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "21:00"
+            },
+            "saturday": {
+              "open": "07:30",
+              "close": "21:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/9694273339090808764",
+          "google_place_id": "ChIJgzRWDMkbkqwRCbUCDwfhuv8",
+          "google_maps_uri": "https://maps.google.com/maps?cid=18427288245772662025",
+          "name": "Grupo Fusi - São Carlos",
+          "description": "O Grupo Fusi, em São Carlos, é especialista na fabricação de correntes de aço e acessórios como ganchos, anéis e manilhas, com alta resistência e qualidade para aplicações industriais e movimentação de carga.",
+          "phone_primary": "(16) 99318-6260",
+          "phone_additional": "",
+          "website": "https://grupofusi.com.br/",
+          "address_full": "Rod. Washington Luís, KM 230",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13571-291",
+          "address_country": "BR",
+          "address_neighborhood": "Jardim Maracanã",
+          "category_primary": "Fabricante",
+          "categories_additional": [],
+          "hours": {
+            "monday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "tuesday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "wednesday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "thursday": {
+              "open": "07:30",
+              "close": "18:00"
+            },
+            "friday": {
+              "open": "07:30",
+              "close": "18:00"
+            }
+          }
+        },
+        {
+          "google_location_id": "locations/3254636664043949066",
+          "google_place_id": "ChIJ50zFh0l3uJQRhnce071mCIU",
+          "google_maps_uri": "https://maps.google.com/maps?cid=9586024772334942086",
+          "name": "Ortodontista Dr. Igor Rantin - São Carlos",
+          "description": "O Dr. Igor Rantin é dentista especializado em ortodontia em São Carlos – SP, oferecendo tratamentos com aparelhos fixos, alinhadores transparentes e foco em ortodontia estética. Também realiza limpeza dentária, clareamento dentário e restauração estética, unindo saúde bucal e beleza do sorriso. Com atendimento humanizado e técnicas modernas, o consultório oferece soluções completas em ortodontia. Endereço: R. São Joaquim, 722 – Vila Monteiro (Gleba I), São Carlos – SP Agende sua consulta: (16) 99225-0079",
+          "phone_primary": "(16) 99225-0079",
+          "phone_additional": "",
+          "website": "https://www.4allaligner.com.br/",
+          "address_full": "Rua Dom Pedro II, 1258",
+          "address_city": "São Carlos",
+          "address_state": "SP",
+          "address_postal_code": "13560-235",
+          "address_country": "BR",
+          "address_neighborhood": "Vila Monteiro (Gleba I)",
+          "category_primary": "Ortodontista",
+          "categories_additional": [
+            "Dentista",
+            "Cirurgião dentista"
+          ],
+          "hours": {
+            "monday": {
+              "open": "09:00",
+              "close": "19:00"
+            },
+            "tuesday": {
+              "open": "09:00",
+              "close": "19:00"
+            },
+            "wednesday": {
+              "open": "09:00",
+              "close": "19:00"
+            },
+            "thursday": {
+              "open": "09:00",
+              "close": "19:00"
+            },
+            "friday": {
+              "open": "09:00",
+              "close": "19:00"
+            }
+          }
+        }
+      ],
+      "timestamp": "2026-02-08T00:45:30.975Z"
+    }
+  ]

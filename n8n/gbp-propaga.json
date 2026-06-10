@@ -1,0 +1,232 @@
+{
+  "name": "gbp-propaga",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://mybusinessbusinessinformation.googleapis.com/v1/{{ $json.accounts[0].name }}/locations",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleBusinessProfileOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "readMask",
+              "value": "name,title,phoneNumbers,storefrontAddress,websiteUri,regularHours,categories,profile,metadata"
+            },
+            {
+              "name": "pageSize",
+              "value": "100"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aebad141-05c8-4a96-872a-79f3b42d1edc",
+      "name": "Get Business Locations",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        384,
+        0
+      ],
+      "credentials": {
+        "googleBusinessProfileOAuth2Api": {
+          "id": "5igdUXdVK0NEyRuT",
+          "name": "Google Business Profile account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst locations = response.locations || [];\n\nreturn locations.map((loc) => {\n  const cepRaw = String(loc.storefrontAddress?.postalCode || '');\n  const cep = cepRaw.replace(/\\D/g, '');\n\n  return {\n    json: {\n      location: loc,\n      cep,\n    },\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        0
+      ],
+      "id": "b8c6b909-4c08-4e17-a5d7-9d0a8447b7c8",
+      "name": "Split Locations"
+    },
+    {
+      "parameters": {
+        "url": "=https://viacep.com.br/ws/{{ $json.cep }}/json/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        0
+      ],
+      "id": "f246cd20-5a5a-4c8c-b4f4-d6ab5d5f1d3b",
+      "name": "ViaCEP Request",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "=GET, OPTIONS",
+        "path": "p2/gbp/import",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "740ad81f-b47d-4e31-b389-34887d70bbc7",
+      "name": "Webhook1",
+      "webhookId": "1fbe9cdf-f590-4972-98f3-31a84aa4d6e8"
+    },
+    {
+      "parameters": {
+        "url": "=https://mybusinessaccountmanagement.googleapis.com/v1/accounts",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleBusinessProfileOAuth2Api",
+        "options": {}
+      },
+      "id": "c8e63c4f-00db-4938-928e-e534a09025da",
+      "name": "GBP - List Accounts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        160,
+        0
+      ],
+      "credentials": {
+        "googleBusinessProfileOAuth2Api": {
+          "id": "5igdUXdVK0NEyRuT",
+          "name": "Google Business Profile account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const viaCepItems = $input.all();\nconst splitItems = $items('Split Locations');\n\nconst formattedLocations = viaCepItems.map((viaCepItem, index) => {\n  const loc = splitItems[index]?.json?.location || {};\n  const address = loc.storefrontAddress || {};\n  const phone = loc.phoneNumbers?.primaryPhone || '';\n  const additionalPhones = loc.phoneNumbers?.additionalPhones || [];\n  const categories = loc.categories || {};\n  const viaCepBairro = typeof viaCepItem.json?.bairro === 'string' ? viaCepItem.json.bairro : '';\n  const viaCepErro = viaCepItem.json?.erro === true || viaCepItem.json?.erro === 'true' || Boolean(viaCepItem.json?.error);\n  \n  // Converter horários para formato mais simples\n  const hours = {};\n  if (loc.regularHours?.periods) {\n    loc.regularHours.periods.forEach((period) => {\n      const day = period.openDay?.toLowerCase() || 'unknown';\n      const openHour = period.openTime?.hours || 0;\n      const openMin = period.openTime?.minutes || 0;\n      const closeHour = period.closeTime?.hours || 0;\n      const closeMin = period.closeTime?.minutes || 0;\n      \n      hours[day] = {\n        open: `${String(openHour).padStart(2, '0')}:${String(openMin).padStart(2, '0')}`,\n        close: `${String(closeHour).padStart(2, '0')}:${String(closeMin).padStart(2, '0')}`,\n      };\n    });\n  }\n  \n  // Extrair número e rua do addressLines\n  const fullAddress = address.addressLines?.[0] || '';\n  const neighborhood = !viaCepErro && viaCepBairro ? viaCepBairro : address.sublocality || '';\n  \n  return {\n    // IDs de referência\n    google_location_id: loc.name,\n    google_place_id: loc.metadata?.placeId || '',\n    google_maps_uri: loc.metadata?.mapsUri || '',\n    \n    // Info Básica\n    name: loc.title || '',\n    description: loc.profile?.description || '',\n    \n    // Contato\n    phone_primary: phone,\n    phone_additional: additionalPhones.join(', '),\n    website: loc.websiteUri || '',\n    \n    // Endereço\n    address_full: fullAddress,\n    address_city: address.locality || '',\n    address_state: address.administrativeArea || '',\n    address_postal_code: address.postalCode || '',\n    address_country: address.regionCode || 'BR',\n    address_neighborhood: neighborhood,\n    \n    // Categorias\n    category_primary: categories.primaryCategory?.displayName || '',\n    categories_additional: (categories.additionalCategories || [])\n      .map((c) => c.displayName)\n      .filter(Boolean),\n    \n    // Horários formatados\n    hours: hours,\n  };\n});\n\nreturn [{\n  json: {\n    success: true,\n    total: formattedLocations.length,\n    locations: formattedLocations,\n    timestamp: new Date().toISOString(),\n  },\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        0
+      ],
+      "id": "f4786ab6-7d9a-4e04-8c48-d9ea83ee870a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "GET, POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        912,
+        0
+      ],
+      "id": "bf272099-10d6-4b39-8934-01201daddd39",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get Business Locations": {
+      "main": [
+        [
+          {
+            "node": "Split Locations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Locations": {
+      "main": [
+        [
+          {
+            "node": "ViaCEP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ViaCEP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "GBP - List Accounts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GBP - List Accounts": {
+      "main": [
+        [
+          {
+            "node": "Get Business Locations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "e73968b5-2639-4932-ac2b-fc98fa942281",
+  "meta": {
+    "instanceId": "3e98ca8961fe56d44e997f71b655401c5a3fdf48f8b86366f7bf794b4166da67"
+  },
+  "id": "9xA7FPAkNCDnvkOd_7Omh",
+  "tags": []
+}

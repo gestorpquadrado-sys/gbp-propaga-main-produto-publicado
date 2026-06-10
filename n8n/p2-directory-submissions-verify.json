@@ -1,0 +1,110 @@
+{
+  "name": "p2-directory-submissions-verify",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "p2/directory-submissions/verify",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -320,
+        0
+      ],
+      "webhookId": "ea2446bd-6d81-4244-9128-3d4ae5f0addd"
+    },
+    {
+      "parameters": {
+        "jsCode": "\n// P² Directory Submission Verification - sem fetch e sem variáveis de ambiente.\n// Cole sua SUPABASE_SERVICE_ROLE_KEY abaixo, sem \"Bearer\".\nconst SUPABASE_URL = 'https://fljcywbqzzakwgzyguvl.supabase.co';\nconst SUPABASE_KEY = 'COLE_AQUI_SUA_SUPABASE_SERVICE_ROLE_KEY';\n\nif (!SUPABASE_KEY || SUPABASE_KEY.includes('COLE_AQUI')) {\n  throw new Error('Cole a SUPABASE_SERVICE_ROLE_KEY dentro deste nó Code antes de executar.');\n}\n\nconst httpRequest = this.helpers.httpRequest.bind(this);\nconst input = $input.first().json || {};\nconst query = input.query || input.body || {};\nconst syncId = query.sync_id || query.syncId || null;\nconst locationId = query.location_id || query.locationId || null;\nconst limit = Math.min(Number(query.limit || 30), 100);\n\nconst headers = {\n  apikey: SUPABASE_KEY,\n  Authorization: `Bearer ${SUPABASE_KEY}`,\n  'Content-Type': 'application/json',\n  Accept: 'application/json',\n  Prefer: 'return=representation'\n};\n\nfunction enc(value) { return encodeURIComponent(String(value)); }\nfunction onlyDigits(value) { return String(value || '').replace(/\\D/g, ''); }\nfunction cleanText(value) {\n  return String(value || '')\n    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '')\n    .toLowerCase()\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\nfunction normalizeUrl(url) {\n  if (!url) return null;\n  const raw = String(url).trim();\n  if (!raw) return null;\n  return /^https?:\\/\\//i.test(raw) ? raw : `https://${raw}`;\n}\nfunction applyTemplate(template, data) {\n  if (!template) return null;\n  const replacements = {\n    name: data.name || '',\n    city: data.city || '',\n    state: data.state || '',\n    phone: onlyDigits(data.phone || ''),\n    zip: onlyDigits(data.zip || ''),\n    q: [data.name, data.city, data.state].filter(Boolean).join(' '),\n  };\n  let out = String(template);\n  for (const [key, value] of Object.entries(replacements)) {\n    out = out.replaceAll(`{${key}}`, encodeURIComponent(value));\n  }\n  return normalizeUrl(out);\n}\n\nasync function supabaseRequest(path, options = {}) {\n  const req = {\n    method: options.method || 'GET',\n    url: `${SUPABASE_URL}${path}`,\n    headers: { ...headers, ...(options.headers || {}) },\n    json: true,\n    resolveWithFullResponse: true,\n    simple: false,\n  };\n  if (options.body !== undefined) req.body = options.body;\n  const response = await httpRequest(req);\n  const statusCode = response.statusCode || response.status || 200;\n  const body = response.body !== undefined ? response.body : response;\n  if (statusCode >= 400) {\n    throw new Error(`Supabase ${statusCode}: ${typeof body === 'string' ? body : JSON.stringify(body)}`);\n  }\n  return body;\n}\n\nasync function getOne(path) {\n  const rows = await supabaseRequest(path);\n  return Array.isArray(rows) && rows.length ? rows[0] : null;\n}\n\nasync function getHtml(url) {\n  const startedAt = Date.now();\n  const response = await httpRequest({\n    method: 'GET',\n    url,\n    headers: {\n      'User-Agent': 'Mozilla/5.0 P2LocalListingsVerifier/1.0',\n      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'\n    },\n    resolveWithFullResponse: true,\n    simple: false,\n    timeout: 15000,\n  });\n  return {\n    statusCode: response.statusCode || response.status || null,\n    body: String(response.body || ''),\n    durationMs: Date.now() - startedAt\n  };\n}\n\nlet filter = 'select=*&order=updated_at.desc';\nif (syncId) filter += `&sync_id=eq.${enc(syncId)}`;\nif (locationId) filter += `&location_id=eq.${enc(locationId)}`;\nif (!syncId && !locationId) {\n  filter += `&verification_status=in.(not_checked,pending_review,manual_check_required,error)&limit=${limit}`;\n} else {\n  filter += `&limit=${limit}`;\n}\n\nconst submissions = await supabaseRequest(`/rest/v1/directory_submissions?${filter}`);\nconst results = [];\n\nfor (const sub of submissions || []) {\n  const checkedAt = new Date().toISOString();\n  const channelCode = sub.channel_code;\n  let status = 'manual_check_required';\n  let message = 'Sem URL verificável configurada. Conferência manual recomendada.';\n  let profileUrl = sub.profile_url || null;\n  let checkedUrl = null;\n  let statusCode = null;\n  let foundName = false;\n  let foundPhone = false;\n  let foundCity = false;\n\n  const channel = await getOne(`/rest/v1/directory_channels?code=eq.${enc(channelCode)}&select=*`);\n  const company = sub.company_id ? await getOne(`/rest/v1/companies?id=eq.${enc(sub.company_id)}&select=*`) : null;\n  const location = sub.location_id ? await getOne(`/rest/v1/google_locations?id=eq.${enc(sub.location_id)}&select=*`) : null;\n\n  const raw = typeof sub.raw_response === 'string' ? (() => { try { return JSON.parse(sub.raw_response); } catch { return {}; } })() : (sub.raw_response || {});\n  const business = {\n    name: company?.name || location?.name || raw.copyPayload?.['Nome da empresa'] || raw.copy_payload?.['Nome da empresa'] || '',\n    phone: company?.phone || location?.phone_primary || raw.copyPayload?.Telefone || raw.copy_payload?.Telefone || '',\n    city: company?.city || location?.address_city || raw.copyPayload?.Cidade || raw.copy_payload?.Cidade || '',\n    state: company?.state || location?.address_state || raw.copyPayload?.Estado || raw.copy_payload?.Estado || '',\n    zip: company?.postal_code || location?.address_postal_code || raw.copyPayload?.CEP || raw.copy_payload?.CEP || '',\n  };\n\n  if (profileUrl) {\n    checkedUrl = normalizeUrl(profileUrl);\n  } else if (channel?.verification_url_template) {\n    checkedUrl = applyTemplate(channel.verification_url_template, business);\n  } else if (channel?.search_url_template) {\n    checkedUrl = applyTemplate(channel.search_url_template, business);\n  }\n\n  if (checkedUrl) {\n    try {\n      const page = await getHtml(checkedUrl);\n      statusCode = page.statusCode;\n      const html = cleanText(page.body);\n      const businessName = cleanText(business.name);\n      const businessCity = cleanText(business.city);\n      const phoneDigits = onlyDigits(business.phone);\n      const htmlDigits = onlyDigits(page.body);\n\n      foundName = businessName ? html.includes(businessName) : false;\n      foundCity = businessCity ? html.includes(businessCity) : false;\n      foundPhone = phoneDigits && phoneDigits.length >= 8 ? htmlDigits.includes(phoneDigits.slice(-8)) : false;\n\n      if (page.statusCode >= 200 && page.statusCode < 400 && (foundName || foundPhone)) {\n        status = 'found_online';\n        message = 'Perfil ou página com dados compatíveis encontrado online.';\n        profileUrl = checkedUrl;\n      } else if (page.statusCode === 401 || page.statusCode === 403 || page.statusCode === 429) {\n        status = 'manual_check_required';\n        message = `Diretório bloqueou verificação automática ou exige login/captcha. HTTP ${page.statusCode}.`;\n      } else if (page.statusCode === 404 || page.statusCode === 410) {\n        status = 'not_found';\n        message = `URL verificada não existe ou foi removida. HTTP ${page.statusCode}.`;\n      } else if (page.statusCode >= 200 && page.statusCode < 400) {\n        status = 'data_mismatch';\n        message = 'Página acessível, mas nome/telefone/cidade não bateram com os dados enviados.';\n      } else {\n        status = 'manual_check_required';\n        message = `Resposta HTTP ${page.statusCode}. Conferir manualmente.`;\n      }\n    } catch (err) {\n      status = 'error';\n      message = err.message || 'Erro ao verificar URL.';\n    }\n  }\n\n  await supabaseRequest(`/rest/v1/directory_submissions?id=eq.${enc(sub.id)}`, {\n    method: 'PATCH',\n    body: {\n      verification_status: status,\n      verification_message: message,\n      verified_at: checkedAt,\n      profile_url: profileUrl,\n      updated_at: checkedAt,\n    }\n  });\n\n  await supabaseRequest('/rest/v1/directory_submission_verification_logs', {\n    method: 'POST',\n    body: {\n      submission_id: sub.id,\n      sync_id: sub.sync_id,\n      channel_code: channelCode,\n      checked_url: checkedUrl,\n      status,\n      status_code: statusCode,\n      found_name: foundName,\n      found_phone: foundPhone,\n      found_city: foundCity,\n      profile_url: profileUrl,\n      message,\n      raw_response: { business, channel: channel || {}, previous_status: sub.verification_status || null },\n      checked_at: checkedAt,\n    }\n  });\n\n  results.push({ channel: channelCode, status, message, checkedUrl, profileUrl, statusCode, foundName, foundPhone, foundCity });\n}\n\nreturn [{\n  json: {\n    success: true,\n    sync_id: syncId,\n    location_id: locationId,\n    checked: results.length,\n    found_online: results.filter(r => r.status === 'found_online').length,\n    manual_check_required: results.filter(r => r.status === 'manual_check_required').length,\n    not_found: results.filter(r => r.status === 'not_found').length,\n    data_mismatch: results.filter(r => r.status === 'data_mismatch').length,\n    error: results.filter(r => r.status === 'error').length,\n    timestamp: new Date().toISOString(),\n    results\n  }\n}];\n"
+      },
+      "id": "2",
+      "name": "Verify Directory Submissions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        180,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 4 * * 2,5"
+            }
+          ]
+        }
+      },
+      "id": "4",
+      "name": "Agendamento - terça e sexta 04h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        180
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Verify Directory Submissions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendamento - terça e sexta 04h": {
+      "main": [
+        [
+          {
+            "node": "Verify Directory Submissions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Directory Submissions": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
