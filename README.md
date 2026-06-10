@@ -1,0 +1,1 @@
+# gbp-propaga-main-produto-publicado
