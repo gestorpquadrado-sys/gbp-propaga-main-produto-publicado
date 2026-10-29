@@ -16,6 +16,7 @@ const Auth = () => {
   // produzia erro: quem dá acesso é um administrador, na tela /equipe.
   const isLogin = true;
   const [verSenha, setVerSenha] = useState(false);
+  const [recuperando, setRecuperando] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -29,6 +30,25 @@ const Auth = () => {
   }
 
   if (user) return <Navigate to="/" replace />;
+
+  // Recuperação de senha: manda o link para /nova-senha. Só passou a funcionar depois
+  // que o site_url do projeto saiu de http://localhost:3000, em 29/10/2026 — antes o
+  // e-mail chegava com link para a máquina de quem configurou.
+  const recuperar = async () => {
+    setError(null);
+    setSuccess(null);
+    if (!email.trim()) {
+      setError('Escreva o seu e-mail acima e clique de novo.');
+      return;
+    }
+    setRecuperando(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/nova-senha`,
+    });
+    setRecuperando(false);
+    if (error) setError(error.message);
+    else setSuccess('Se este e-mail tiver acesso, o link para criar uma nova senha chega em alguns minutos. Olhe também o spam.');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -173,11 +193,22 @@ const Auth = () => {
             </button>
           </form>
 
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            O acesso é concedido por um administrador da Pquadrado.
-            <br />
-            Não tem login? Fale com quem administra o sistema.
-          </p>
+          <div className="mt-6 text-center">
+            <button
+              type="button"
+              onClick={recuperar}
+              disabled={recuperando}
+              className="text-sm text-primary underline font-medium disabled:opacity-50 inline-flex items-center gap-1.5"
+            >
+              {recuperando && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+              Esqueci minha senha
+            </button>
+            <p className="text-sm text-muted-foreground mt-4">
+              O acesso é concedido por um administrador da Pquadrado.
+              <br />
+              Não tem login? Fale com quem administra o sistema.
+            </p>
+          </div>
         </div>
       </div>
     </div>

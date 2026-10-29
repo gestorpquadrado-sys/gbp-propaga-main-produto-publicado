@@ -21,7 +21,7 @@ const campo =
 const data = (v: string | null) =>
   v ? new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '—';
 
-const Equipe = () => {
+const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
   const { user } = useAuth();
   const { ehAdmin, naEquipe, carregando: carregandoPapel } = usePapel();
 
@@ -142,22 +142,30 @@ const Equipe = () => {
     }
   };
 
-  if (carregandoPapel || carregando) {
-    return (
+  // Esta tela é usada sozinha em /equipe e também dentro da aba de Configurações.
+  // `semMoldura` tira o Header e o container, que o hub já desenha.
+  const Moldura = ({ children }: { children: React.ReactNode }) =>
+    semMoldura ? <>{children}</> : (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="flex items-center justify-center py-32">
+        <div className="container mx-auto px-6 py-10 max-w-4xl">{children}</div>
+      </div>
+    );
+
+  if (carregandoPapel || carregando) {
+    return (
+      <Moldura>
+        <div className="flex items-center justify-center py-24">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
-      </div>
+      </Moldura>
     );
   }
 
   if (!naEquipe) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="container mx-auto px-6 py-16 max-w-xl">
+      <Moldura>
+        <div className="max-w-xl">
           <div className="bg-card border border-border rounded-xl p-8 text-center">
             <AlertTriangle className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
             <h2 className="text-lg font-semibold text-foreground">Sem acesso a esta área</h2>
@@ -166,16 +174,15 @@ const Equipe = () => {
             </p>
           </div>
         </div>
-      </div>
+      </Moldura>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="container mx-auto px-6 py-10 max-w-4xl">
+    <Moldura>
+      <div>
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-foreground">Equipe</h1>
+          <h2 className="text-lg font-semibold text-foreground">Equipe</h2>
           <p className="text-sm text-muted-foreground mt-1">
             Quem pode entrar no P² Local Listings e ver os clientes.
             {!ehAdmin && ' Só um administrador altera esta lista.'}
@@ -365,7 +372,7 @@ const Equipe = () => {
           </div>
         </form>
       </div>
-    </div>
+    </Moldura>
   );
 };
 

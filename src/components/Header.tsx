@@ -1,4 +1,4 @@
-import { Building2, Users } from "lucide-react";
+import { Building2, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePapel } from "@/hooks/usePapel";
 
@@ -26,8 +26,8 @@ const Header = () => {
           </Button>
           {naEquipe && (
             <Button asChild variant="outline" size="sm">
-              <a href="/equipe" className="flex items-center gap-1.5">
-                <Users className="h-3.5 w-3.5" /> Equipe
+              <a href="/configuracoes" className="flex items-center gap-1.5">
+                <Settings className="h-3.5 w-3.5" /> Configurações
               </a>
             </Button>
           )}
