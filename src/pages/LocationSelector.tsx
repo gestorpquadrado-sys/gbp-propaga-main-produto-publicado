@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Building2, MapPin, Phone, Tag, Plus, Loader2, LogOut, Search, X } from 'lucide-react';
+import { Building2, MapPin, Phone, Tag, Plus, Loader2, LogOut, Search, X, Settings } from 'lucide-react';
 import { GoogleImportModal } from '@/components/GoogleImportModal';
 import type { GoogleLocation } from '@/components/GoogleImportModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { listUserLocations, saveImportedLocations } from '@/services/database-service';
 import { supabase } from '@/integrations/supabase/client';
 import { appEnv } from '@/lib/env';
+import { usePapel } from '@/hooks/usePapel';
 
 const LocationSelector = () => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
+  // Esta tela NÃO usa o componente Header: ela desenha o próprio cabeçalho. Foi por
+  // isso que o link de Configurações, posto só no Header, nunca apareceu aqui.
+  const { naEquipe } = usePapel();
   const [locations, setLocations] = useState<GoogleLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,13 +99,24 @@ const LocationSelector = () => {
               <p className="text-xs text-muted-foreground">Estratégias que Vencem</p>
             </div>
           </div>
-          <button
-            onClick={signOut}
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <LogOut className="h-4 w-4" />
-            Sair
-          </button>
+          <div className="flex items-center gap-4">
+            {naEquipe && (
+              <button
+                onClick={() => navigate('/configuracoes')}
+                className="flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md text-foreground hover:bg-card transition-colors"
+              >
+                <Settings className="h-4 w-4" />
+                Configurações
+              </button>
+            )}
+            <button
+              onClick={signOut}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <LogOut className="h-4 w-4" />
+              Sair
+            </button>
+          </div>
         </div>
       </header>
 
