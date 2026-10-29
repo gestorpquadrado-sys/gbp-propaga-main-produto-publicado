@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Loader2, UserPlus, Trash2, ShieldCheck, ShieldOff, Copy, KeyRound, AlertTriangle } from 'lucide-react';
+import { Loader2, UserPlus, Trash2, ShieldCheck, ShieldOff, Copy, KeyRound, AlertTriangle, Eye, EyeOff } from 'lucide-react';
 import Header from '@/components/Header';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -39,6 +39,7 @@ const Equipe = () => {
 
   const [minhaSenha, setMinhaSenha] = useState('');
   const [trocando, setTrocando] = useState(false);
+  const [verNova, setVerNova] = useState(false);
 
   const chamar = useCallback(async (corpo: Record<string, unknown>) => {
     const { data: sessao } = await supabase.auth.getSession();
@@ -332,14 +333,26 @@ const Equipe = () => {
           <div className="flex gap-3 flex-wrap items-end">
             <div className="flex-1 min-w-[220px]">
               <label className="block text-sm font-medium text-foreground mb-1.5">Nova senha</label>
-              <input
-                className={campo}
-                type="password"
-                value={minhaSenha}
-                onChange={(e) => setMinhaSenha(e.target.value)}
-                placeholder="pelo menos 8 caracteres"
-                autoComplete="new-password"
-              />
+              <div className="relative">
+                <input
+                  className={`${campo} pr-11`}
+                  type={verNova ? 'text' : 'password'}
+                  value={minhaSenha}
+                  onChange={(e) => setMinhaSenha(e.target.value)}
+                  placeholder="pelo menos 8 caracteres"
+                  autoComplete="new-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setVerNova((v) => !v)}
+                  tabIndex={-1}
+                  aria-label={verNova ? 'Ocultar senha' : 'Mostrar senha'}
+                  title={verNova ? 'Ocultar senha' : 'Mostrar senha'}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {verNova ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
             <button
               type="submit"

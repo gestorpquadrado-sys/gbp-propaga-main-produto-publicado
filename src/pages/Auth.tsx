@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Building2, Loader2 } from 'lucide-react';
+import { Building2, Loader2, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -15,6 +15,7 @@ const Auth = () => {
   // que recusa e-mail fora de authorized_users. Deixar o botão 'Criar conta' aqui só
   // produzia erro: quem dá acesso é um administrador, na tela /equipe.
   const isLogin = true;
+  const [verSenha, setVerSenha] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -130,14 +131,29 @@ const Auth = () => {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Senha</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                placeholder="••••••••"
-                required
-              />
+              <div className="relative">
+                <input
+                  type={verSenha ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 pr-11 bg-background border border-border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  placeholder="••••••••"
+                  required
+                />
+                {/* Senha de acesso a sistema é longa e vem de terceiro (o admin manda a
+                    temporária): sem poder conferir o que digitou, errar uma letra parece
+                    senha errada. tabIndex -1 para o Tab ir do campo direto para Entrar. */}
+                <button
+                  type="button"
+                  onClick={() => setVerSenha((v) => !v)}
+                  tabIndex={-1}
+                  aria-label={verSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                  title={verSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {verSenha ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
 
             {error && (
