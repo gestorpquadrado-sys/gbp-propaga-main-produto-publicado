@@ -11,7 +11,10 @@ const Auth = () => {
   const [fullName, setFullName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
-  const [isLogin, setIsLogin] = useState(true);
+  // O cadastro aberto foi fechado em 29/10/2026 (disable_signup) e existe um gatilho
+  // que recusa e-mail fora de authorized_users. Deixar o botão 'Criar conta' aqui só
+  // produzia erro: quem dá acesso é um administrador, na tela /equipe.
+  const isLogin = true;
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -155,13 +158,9 @@ const Auth = () => {
           </form>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            {isLogin ? 'Não tem conta?' : 'Já tem conta?'}{' '}
-            <button
-              onClick={() => { setIsLogin(!isLogin); setError(null); setSuccess(null); }}
-              className="text-primary underline font-medium"
-            >
-              {isLogin ? 'Criar conta' : 'Entrar'}
-            </button>
+            O acesso é concedido por um administrador da Pquadrado.
+            <br />
+            Não tem login? Fale com quem administra o sistema.
           </p>
         </div>
       </div>

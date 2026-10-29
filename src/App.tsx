@@ -10,6 +10,7 @@ import Auth from "./pages/Auth";
 import LocationSelector from "./pages/LocationSelector";
 import DirectoryPanel from "./pages/DirectoryPanel";
 import PublicCompanyPage from "./pages/PublicCompanyPage";
+import Equipe from "./pages/Equipe";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/form" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/panel/:locationId" element={<ProtectedRoute><DirectoryPanel /></ProtectedRoute>} />
             <Route path="/panel/locations/:locationId" element={<ProtectedRoute><DirectoryPanel /></ProtectedRoute>} />
+            <Route path="/equipe" element={<ProtectedRoute><Equipe /></ProtectedRoute>} />
             <Route path="/empresa/:slug" element={<PublicCompanyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
