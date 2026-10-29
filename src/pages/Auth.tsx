@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Building2, Loader2 } from 'lucide-react';
+import { Building2, Loader2, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -11,7 +11,12 @@ const Auth = () => {
   const [fullName, setFullName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
-  const [isLogin, setIsLogin] = useState(true);
+  // O cadastro aberto foi fechado em 29/10/2026 (disable_signup) e existe um gatilho
+  // que recusa e-mail fora de authorized_users. Deixar o botão 'Criar conta' aqui só
+  // produzia erro: quem dá acesso é um administrador, na tela /equipe.
+  const isLogin = true;
+  const [verSenha, setVerSenha] = useState(false);
+  const [recuperando, setRecuperando] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -25,6 +30,25 @@ const Auth = () => {
   }
 
   if (user) return <Navigate to="/" replace />;
+
+  // Recuperação de senha: manda o link para /nova-senha. Só passou a funcionar depois
+  // que o site_url do projeto saiu de http://localhost:3000, em 29/10/2026 — antes o
+  // e-mail chegava com link para a máquina de quem configurou.
+  const recuperar = async () => {
+    setError(null);
+    setSuccess(null);
+    if (!email.trim()) {
+      setError('Escreva o seu e-mail acima e clique de novo.');
+      return;
+    }
+    setRecuperando(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/nova-senha`,
+    });
+    setRecuperando(false);
+    if (error) setError(error.message);
+    else setSuccess('Se este e-mail tiver acesso, o link para criar uma nova senha chega em alguns minutos. Olhe também o spam.');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,14 +151,29 @@ const Auth = () => {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Senha</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                placeholder="••••••••"
-                required
-              />
+              <div className="relative">
+                <input
+                  type={verSenha ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 pr-11 bg-background border border-border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  placeholder="••••••••"
+                  required
+                />
+                {/* Senha de acesso a sistema é longa e vem de terceiro (o admin manda a
+                    temporária): sem poder conferir o que digitou, errar uma letra parece
+                    senha errada. tabIndex -1 para o Tab ir do campo direto para Entrar. */}
+                <button
+                  type="button"
+                  onClick={() => setVerSenha((v) => !v)}
+                  tabIndex={-1}
+                  aria-label={verSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                  title={verSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {verSenha ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
 
             {error && (
@@ -154,15 +193,22 @@ const Auth = () => {
             </button>
           </form>
 
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            {isLogin ? 'Não tem conta?' : 'Já tem conta?'}{' '}
+          <div className="mt-6 text-center">
             <button
-              onClick={() => { setIsLogin(!isLogin); setError(null); setSuccess(null); }}
-              className="text-primary underline font-medium"
+              type="button"
+              onClick={recuperar}
+              disabled={recuperando}
+              className="text-sm text-primary underline font-medium disabled:opacity-50 inline-flex items-center gap-1.5"
             >
-              {isLogin ? 'Criar conta' : 'Entrar'}
+              {recuperando && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+              Esqueci minha senha
             </button>
-          </p>
+            <p className="text-sm text-muted-foreground mt-4">
+              O acesso é concedido por um administrador da Pquadrado.
+              <br />
+              Não tem login? Fale com quem administra o sistema.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -10,6 +10,9 @@ import Auth from "./pages/Auth";
 import LocationSelector from "./pages/LocationSelector";
 import DirectoryPanel from "./pages/DirectoryPanel";
 import PublicCompanyPage from "./pages/PublicCompanyPage";
+import Equipe from "./pages/Equipe";
+import Configuracoes from "./pages/Configuracoes";
+import NovaSenha from "./pages/NovaSenha";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +30,10 @@ const App = () => (
             <Route path="/form" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/panel/:locationId" element={<ProtectedRoute><DirectoryPanel /></ProtectedRoute>} />
             <Route path="/panel/locations/:locationId" element={<ProtectedRoute><DirectoryPanel /></ProtectedRoute>} />
+            <Route path="/configuracoes" element={<ProtectedRoute><Configuracoes /></ProtectedRoute>} />
+            <Route path="/equipe" element={<ProtectedRoute><Equipe /></ProtectedRoute>} />
+            {/* fora do ProtectedRoute: o link de recuperação chega com quem não está logado */}
+            <Route path="/nova-senha" element={<NovaSenha />} />
             <Route path="/empresa/:slug" element={<PublicCompanyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
