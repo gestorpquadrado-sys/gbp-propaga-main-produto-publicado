@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Building2, Clock, Globe, MapPin, Phone, Tag } from 'lucide-react';
+import { Building2, Clock, Globe, MapPin, Phone, Tag, BadgeCheck, ExternalLink } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import type { CompanyRow, GoogleLocationRow } from '@/types/database';
 
 interface PublicData {
   company: CompanyRow;
   location: GoogleLocationRow | null;
+  perfis: Perfil[];
 }
+
+/** Onde esta empresa está publicada, confirmado pela verificação automática. */
+type Perfil = {
+  channel_code: string;
+  profile_url: string;
+  nome: string;
+  verificado_em: string | null;
+};
 
 function formatHours(hours: unknown): string[] {
   if (!hours || typeof hours !== 'object') return [];
@@ -38,14 +47,46 @@ const PublicCompanyPage = () => {
         return;
       }
 
-      const [{ data: company }, { data: location }] = await Promise.all([
+      const [{ data: company }, { data: location }, { data: subs }, { data: canais }] = await Promise.all([
         supabase.from('companies').select('*').eq('id', page.company_id).maybeSingle(),
         page.location_id
           ? supabase.from('google_locations').select('*').eq('id', page.location_id).maybeSingle()
           : Promise.resolve({ data: null }),
+        // Só as confirmadas: a política de RLS para visitante anônimo já devolve apenas
+        // found_online com profile_url, mas o filtro fica explícito — a página do cliente
+        // não promete o que está pendente.
+        supabase
+          .from('directory_submissions')
+          .select('channel_code, profile_url, verified_at')
+          .eq('company_id', page.company_id)
+          .eq('verification_status', 'found_online')
+          .not('profile_url', 'is', null),
+        supabase.from('directory_channels').select('code, name'),
       ]);
 
-      if (company) setData({ company: company as CompanyRow, location: location as GoogleLocationRow | null });
+      const nomes = new Map<string, string>(
+        ((canais ?? []) as { code: string; name: string }[]).map((c) => [c.code, c.name]),
+      );
+      // Um diretório pode ter mais de uma submissão (sincronizações diferentes); mostra
+      // uma linha por diretório, com o perfil mais recentemente confirmado.
+      const porCanal = new Map<string, Perfil>();
+      for (const r of (subs ?? []) as { channel_code: string; profile_url: string; verified_at: string | null }[]) {
+        const atual = porCanal.get(r.channel_code);
+        if (!atual || (r.verified_at ?? '') > (atual.verificado_em ?? '')) {
+          porCanal.set(r.channel_code, {
+            channel_code: r.channel_code,
+            profile_url: r.profile_url,
+            nome: nomes.get(r.channel_code) ?? r.channel_code,
+            verificado_em: r.verified_at,
+          });
+        }
+      }
+
+      if (company) setData({
+        company: company as CompanyRow,
+        location: location as GoogleLocationRow | null,
+        perfis: [...porCanal.values()].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR')),
+      });
       setLoading(false);
     }
 
@@ -69,7 +110,7 @@ const PublicCompanyPage = () => {
     );
   }
 
-  const { company, location } = data;
+  const { company, location, perfis } = data;
   const phone = location?.phone_primary || company.phone;
   const website = location?.website || company.website;
   const mapUri = location?.google_maps_uri;
@@ -116,6 +157,44 @@ const PublicCompanyPage = () => {
           {website && <a href={website} target="_blank" rel="noreferrer" className="block w-full text-center rounded-md border border-border py-3 text-foreground hover:bg-muted">Visitar site</a>}
         </aside>
       </section>
+
+      {perfis.length > 0 && (
+        <section className="container mx-auto px-6 pb-14 max-w-5xl">
+          <div className="bg-card border border-border rounded-xl p-6 shadow-purple">
+            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+              <BadgeCheck className="h-5 w-5 text-emerald-500" />
+              Onde encontrar {company.name}
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1 mb-5">
+              {perfis.length === 1
+                ? 'Perfil confirmado em 1 diretório, verificado automaticamente.'
+                : `Perfis confirmados em ${perfis.length} diretórios, verificados automaticamente.`}
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-3">
+              {perfis.map((p) => (
+                <li key={p.channel_code}>
+                  <a
+                    href={p.profile_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between gap-3 rounded-lg border border-border px-4 py-3 hover:bg-background transition-colors group"
+                  >
+                    <span className="min-w-0">
+                      <span className="block text-sm font-medium text-foreground truncate">{p.nome}</span>
+                      {p.verificado_em && (
+                        <span className="block text-xs text-muted-foreground">
+                          confirmado em {new Date(p.verificado_em).toLocaleDateString('pt-BR')}
+                        </span>
+                      )}
+                    </span>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
     </main>
   );
 };
