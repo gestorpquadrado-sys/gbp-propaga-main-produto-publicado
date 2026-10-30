@@ -310,6 +310,37 @@ async function rest(path: string, init: RequestInit = {}) {
   return { ok: res.ok, status: res.status, body };
 }
 
+// Quando o chamador não manda location_id, a submissão era gravada com a ficha NULA.
+// Duas consequências: ela não aparece em painel nenhum (o painel filtra por ficha), e
+// o UNIQUE (user_id, location_id, channel_code) deixa de proteger, porque no Postgres
+// NULL nunca conflita — cada reenvio cria linha nova em vez de atualizar. Foi o que
+// aconteceu no primeiro envio real (sync_1793300574915_la32c1bad, 34 linhas soltas).
+// Aqui a ficha é RESOLVIDA, nunca criada, e só quando a resposta é única: se a empresa
+// tem 0 ou 2+ fichas, não há como adivinhar qual é e fica como estava.
+async function resolverFicha(data: Normalized): Promise<string | null> {
+  if (data.location_id) return null;
+
+  // 1ª tentativa: pelo id do Google, que identifica a ficha sem ambiguidade.
+  const gid = String(data.google_location_id || data.gbp_location_id || "").trim();
+  if (gid) {
+    const curto = gid.replace(/^locations\//, "");
+    const r = await rest(
+      `google_locations?select=id&or=(google_location_id.eq.${encodeURIComponent(gid)},google_location_id.eq.${encodeURIComponent(curto)},google_location_id.eq.${encodeURIComponent("locations/" + curto)})&limit=2`,
+    );
+    const rows = r.ok && Array.isArray(r.body) ? r.body : [];
+    if (rows.length === 1) return String(rows[0].id);
+  }
+
+  // 2ª tentativa: pela empresa, e só se ela tiver exatamente uma ficha.
+  const cid = String(data.company_id || "").trim();
+  if (cid && /^[0-9a-f-]{36}$/i.test(cid)) {
+    const r = await rest(`google_locations?select=id&company_id=eq.${encodeURIComponent(cid)}&limit=2`);
+    const rows = r.ok && Array.isArray(r.body) ? r.body : [];
+    if (rows.length === 1) return String(rows[0].id);
+  }
+  return null;
+}
+
 // Uma consulta para todos os canais, em vez de uma por canal dentro do loop.
 async function loadDirectories(codes: string[]) {
   if (codes.length === 0) return { rows: [] as any[], error: null as string | null };
@@ -1011,6 +1042,13 @@ Deno.serve(async (req) => {
       missing: e.missing ?? null,
       ignored_provider_channels: e.ignored_provider_channels ?? [],
     }, 400);
+  }
+
+  // Sem isto a submissão nasce sem ficha e some do painel — ver resolverFicha().
+  const fichaResolvida = await resolverFicha(data);
+  if (fichaResolvida) {
+    data.location_id = fichaResolvida;
+    if (!data.profile_id) data.profile_id = fichaResolvida;
   }
 
   const { rows, error: lookupError } = await loadDirectories(data.channels);
