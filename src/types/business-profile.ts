@@ -73,6 +73,10 @@ export interface ChannelResult {
   nextVerificationAt?: string | null;
   manualInstructions?: string | null;
   copyPayload?: Record<string, string> | null;
+  /** Quando alguém da equipe concluiu o cadastro no diretório, à mão. */
+  filledAt?: string;
+  /** E-mail de quem marcou como preenchido. */
+  filledBy?: string;
 }
 
 export interface SyncResponse {

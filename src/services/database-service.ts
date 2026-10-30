@@ -55,10 +55,17 @@ export async function upsertCompanyFromProfile(profile: BusinessProfile): Promis
     updated_at: new Date().toISOString(),
   };
 
+  // Procura por SLUG, não por (user_id, slug).
+  //
+  // A restrição do banco é UNIQUE (user_id, slug), então buscar com o user_id fazia
+  // alguém da equipe não encontrar uma empresa cadastrada por outra pessoa — e o
+  // insert seguinte criava uma SEGUNDA linha da mesma empresa, com outro dono. É a
+  // mesma classe de duplicação que dobrou as submissões da Labitec, um nível acima.
+  //
+  // Achando por slug, a empresa existente é ATUALIZADA e o dono original é preservado.
   const { data: existing } = await supabase
     .from('companies')
     .select('*')
-    .eq('user_id', userId)
     .eq('slug', slug)
     .maybeSingle();
 
@@ -192,12 +199,23 @@ export async function saveImportedLocations(locations: GoogleLocation[]): Promis
   return savedLocations;
 }
 
+// Nota sobre `user_id` nas consultas abaixo.
+//
+// Até 30/10/2026 todas filtravam por `.eq('user_id', userId)`. Isso virou um bug quando
+// o acesso passou a ser de EQUIPE: as 55 empresas pertencem ao user_id de quem as
+// importou, então qualquer outra pessoa autorizada entrava e via o sistema VAZIO —
+// zero empresas na tela principal, zero canais no painel, e salvar falhava em silêncio
+// por não casar nenhuma linha.
+//
+// Quem decide o que cada pessoa vê é a RLS no banco: dono vê o seu, e quem está em
+// `authorized_users` vê a base toda. Repetir o filtro no cliente apenas desfazia isso.
+// O `user_id` continua sendo GRAVADO ao criar (é a dona do registro), mas não filtra
+// mais na leitura.
+
 export async function listUserLocations(): Promise<GoogleLocation[]> {
-  const userId = await getCurrentUserId();
   const { data, error } = await supabase
     .from('google_locations')
     .select('*')
-    .eq('user_id', userId)
     .order('updated_at', { ascending: false });
   if (error) throw error;
 
@@ -337,11 +355,9 @@ function buildAssistedSearchUrl(params: {
 }
 
 export async function getDirectoryStatusByGoogleLocationId(googleLocationId: string) {
-  const userId = await getCurrentUserId();
   const { data: location, error: locationError } = await supabase
     .from('google_locations')
     .select('id,name,phone_primary,address_city,address_state,address_postal_code')
-    .eq('user_id', userId)
     .eq('google_location_id', googleLocationId)
     .maybeSingle();
   if (locationError) throw locationError;
@@ -350,7 +366,6 @@ export async function getDirectoryStatusByGoogleLocationId(googleLocationId: str
   const { data, error } = await supabase
     .from('directory_submissions')
     .select('*')
-    .eq('user_id', userId)
     .eq('location_id', location.id)
     .order('updated_at', { ascending: false });
   if (error) throw error;
@@ -398,6 +413,9 @@ export async function getDirectoryStatusByGoogleLocationId(googleLocationId: str
         nextVerificationAt: row.next_verification_at || raw.nextVerificationAt || undefined,
         manualInstructions: raw.manualInstructions || undefined,
         copyPayload: raw.copyPayload || undefined,
+        // quem concluiu o cadastro à mão, e quando
+        filledAt: row.filled_at || undefined,
+        filledBy: row.filled_by || undefined,
       },
     ];
   }));
@@ -414,7 +432,6 @@ export async function saveDirectorySubmissionProfileUrl(
   channelCode: string,
   profileUrl: string,
 ): Promise<void> {
-  const userId = await getCurrentUserId();
   const cleanUrl = profileUrl.trim();
 
   if (!cleanUrl || !/^https?:\/\//i.test(cleanUrl)) {
@@ -424,7 +441,6 @@ export async function saveDirectorySubmissionProfileUrl(
   const { data: location, error: locationError } = await supabase
     .from('google_locations')
     .select('id')
-    .eq('user_id', userId)
     .eq('google_location_id', googleLocationId)
     .maybeSingle();
   if (locationError) throw locationError;
@@ -439,9 +455,44 @@ export async function saveDirectorySubmissionProfileUrl(
       verified_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
-    .eq('user_id', userId)
     .eq('location_id', location.id)
     .eq('channel_code', channelCode);
 
+  if (error) throw error;
+}
+
+/**
+ * Marca que alguém da equipe concluiu o cadastro no diretório, à mão.
+ *
+ * Isto não existia: o sistema sabia que o canal EXIGE formulário e parava aí. Quem
+ * cadastrava não tinha onde registrar, e dias depois ninguém sabia dizer em qual
+ * diretório o cadastro havia sido feito. Sem isso o trabalho se repete, e a verificação
+ * não distingue o que tem chance de estar publicado do que nunca foi enviado.
+ */
+export async function marcarFormularioPreenchido(
+  googleLocationId: string,
+  channelCode: string,
+  preenchido: boolean,
+  nota?: string,
+): Promise<void> {
+  const { data: u } = await supabase.auth.getUser();
+  const { data: location, error: locationError } = await supabase
+    .from('google_locations')
+    .select('id')
+    .eq('google_location_id', googleLocationId)
+    .maybeSingle();
+  if (locationError) throw locationError;
+  if (!location) throw new Error('Localização não encontrada');
+
+  const { error } = await supabase
+    .from('directory_submissions')
+    .update({
+      filled_at: preenchido ? new Date().toISOString() : null,
+      filled_by: preenchido ? (u.user?.email ?? null) : null,
+      filled_note: preenchido ? (nota?.trim() || null) : null,
+      updated_at: new Date().toISOString(),
+    } as never)
+    .eq('location_id', location.id)
+    .eq('channel_code', channelCode);
   if (error) throw error;
 }

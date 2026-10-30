@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import type React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Building2, ArrowLeft, CheckCircle2, Mail, XCircle, Clock, RefreshCw, ClipboardList, SearchCheck, SearchX, ExternalLink, Copy, PlayCircle, Settings } from 'lucide-react';
+import { Building2, ArrowLeft, CheckCircle2, Mail, XCircle, Clock, RefreshCw, ClipboardList, SearchCheck, SearchX, ExternalLink, Copy, PlayCircle, Settings, CheckSquare, Square } from 'lucide-react';
 import type { ChannelResult } from '@/types/business-profile';
-import { getDirectoryStatusByGoogleLocationId, saveDirectorySubmissionProfileUrl } from '@/services/database-service';
+import { getDirectoryStatusByGoogleLocationId, saveDirectorySubmissionProfileUrl, marcarFormularioPreenchido } from '@/services/database-service';
 import { usePapel } from '@/hooks/usePapel';
 import { Logotipo } from '@/components/Marca';
 import { appEnv } from '@/lib/env';
@@ -161,6 +161,24 @@ const DirectoryPanel = () => {
     }
   };
 
+
+  // Marca que o formulário daquele diretório foi preenchido à mão. Guarda quem e quando,
+  // para ninguém refazer o trabalho nem ficar sem saber onde o cadastro foi feito.
+  const [marcando, setMarcando] = useState<string | null>(null);
+
+  const handleMarcarPreenchido = async (channel: string, jaEstava: boolean) => {
+    if (!locationId) return;
+    if (jaEstava && !window.confirm('Desmarcar este diretório como preenchido?')) return;
+    setMarcando(channel);
+    try {
+      await marcarFormularioPreenchido(decodeURIComponent(locationId), channel, !jaEstava);
+      loadStatus();
+    } catch (error) {
+      alert(`Não foi possível marcar: ${error instanceof Error ? error.message : 'erro desconhecido'}`);
+    } finally {
+      setMarcando(null);
+    }
+  };
 
   const handleSaveProfileUrl = async (channel: string) => {
     if (!locationId) return;
@@ -335,6 +353,26 @@ const DirectoryPanel = () => {
                             {result.profileUrl ? 'Abrir perfil encontrado' : result.formUrl || result.submissionType === 'form' ? 'Abrir formulário' : 'Abrir site'}
                             <ExternalLink className="h-3.5 w-3.5" />
                           </a>
+                        )}
+
+                        {(result.formUrl || result.submissionType === 'form' || result.submissionType === 'manual') && (
+                          <button
+                            type="button"
+                            onClick={() => handleMarcarPreenchido(channel, Boolean(result.filledAt))}
+                            disabled={marcando === channel}
+                            className={`inline-flex items-center gap-2 px-3 py-2 rounded-md border text-xs font-medium transition-colors disabled:opacity-50 ${
+                              result.filledAt
+                                ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20'
+                                : 'border-border text-foreground hover:bg-card'
+                            }`}
+                            title={result.filledAt
+                              ? `Preenchido por ${result.filledBy ?? 'alguém da equipe'} em ${new Date(result.filledAt).toLocaleDateString('pt-BR')}. Clique para desmarcar.`
+                              : 'Marque depois de concluir o cadastro neste diretório'}
+                          >
+                            {result.filledAt
+                              ? <><CheckSquare className="h-3.5 w-3.5" /> Preenchido</>
+                              : <><Square className="h-3.5 w-3.5" /> Marcar preenchido</>}
+                          </button>
                         )}
 
                         {searchUrl && !result.profileUrl && (

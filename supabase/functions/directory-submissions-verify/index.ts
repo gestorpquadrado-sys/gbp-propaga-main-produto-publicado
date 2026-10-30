@@ -155,7 +155,9 @@ Deno.serve(async (req) => {
       const agora = new Date().toISOString();
       filtro += `&verification_status=in.(not_checked,pending_review,error)` +
         `&or=(next_verification_at.is.null,next_verification_at.lte.${agora})` +
-        `&order=verified_at.asc.nullsfirst&limit=${limite}`;
+        // Preenchida à mão vem PRIMEIRO: é a que tem chance real de ter publicado.
+        // Depois, quem nunca foi verificada, depois a mais esquecida.
+        `&order=filled_at.desc.nullslast,verified_at.asc.nullsfirst&limit=${limite}`;
     } else {
       // Consulta dirigida (uma sincronização ou uma ficha): aí a ordem natural é a mais
       // recente primeiro, que é o que a tela espera mostrar.
