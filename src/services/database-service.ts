@@ -509,3 +509,29 @@ export async function marcarFormularioPreenchido(
     .eq('channel_code', channelCode);
   if (error) throw error;
 }
+
+/**
+ * Canais em que ESTA ficha já tem perfil publicado e confirmado.
+ *
+ * Serve para a tela de sincronizar não repropagar o que já está no ar: refazer o
+ * cadastro num diretório que já publicou, no melhor caso é trabalho perdido e, no pior,
+ * cria ficha duplicada que o diretório pode recusar ou mesclar errado.
+ */
+export async function listarCanaisPublicados(
+  googleLocationId: string,
+): Promise<Record<string, string>> {
+  if (!googleLocationId) return {};
+  const ficha = await acharFicha(googleLocationId);
+  if (!ficha) return {};
+  const { data, error } = await supabase
+    .from('directory_submissions')
+    .select('channel_code, profile_url')
+    .eq('location_id', ficha.id)
+    .eq('verification_status', 'found_online');
+  if (error) throw error;
+  const mapa: Record<string, string> = {};
+  for (const r of (data ?? []) as { channel_code: string; profile_url: string | null }[]) {
+    if (r.channel_code) mapa[r.channel_code] = r.profile_url ?? '';
+  }
+  return mapa;
+}

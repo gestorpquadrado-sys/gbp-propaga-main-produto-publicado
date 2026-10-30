@@ -793,8 +793,63 @@ async function processChannels(data: Normalized, byCode: Map<string, any>, looku
   const results: Record<string, any> = {};
   const fila = [...data.channels];
 
+  // Canal onde a ficha JÁ ESTÁ NO AR não é repropagado.
+  //
+  // A tela de sincronizar já fixa esses canais fora da seleção, mas isso é proteção de
+  // interface: uma chamada direta à função, ou uma sincronização disparada de outro
+  // lugar, passaria por cima. Refazer cadastro num diretório que já publicou é trabalho
+  // perdido no melhor caso e, no pior, cria ficha duplicada que o diretório recusa ou
+  // mescla errado.
+  const jaPublicados = new Map<string, string>();
+  // Guardado em `data` porque quem monta a resposta é outra função (finalResponse):
+  // declarar uma variável local aqui e usá-la lá dava ReferenceError e derrubava a
+  // função com 500 em produção.
+  data._erro_ja_publicados = null;
+  if (data.location_id) {
+    // `rest()` devolve { ok, status, body } — NÃO o array. Iterar o retorno direto
+    // lançava TypeError, e o catch silencioso engolia a falha: a trava parecia
+    // funcionar e nunca pulava nada. O erro agora volta no `erro_ja_publicados` da
+    // resposta, em vez de desaparecer.
+    const r = await rest(
+      `directory_submissions?select=channel_code,profile_url` +
+      `&location_id=eq.${encodeURIComponent(data.location_id)}` +
+      `&verification_status=eq.found_online`,
+    );
+    if (r.ok && Array.isArray(r.body)) {
+      for (const p of r.body) {
+        if (p?.channel_code) jaPublicados.set(p.channel_code, p.profile_url ?? "");
+      }
+    } else {
+      data._erro_ja_publicados =
+        `Não foi possível conferir o que já está publicado (HTTP ${r.status}). A sincronização seguiu sem essa trava.`;
+    }
+  }
+
   // Canais que não enviam e-mail não precisam de espaçamento: resolvem na hora.
-  const roteados = fila.map((ch) => routeChannel(data, ch, byCode.get(ch) ?? null, lookupError));
+  const roteados = fila.map((ch) => {
+    if (jaPublicados.has(ch) && !data.ignore_published) {
+      const canal = byCode.get(ch) ?? null;
+      const nome = canal?.name ?? ch;
+      const url = jaPublicados.get(ch) || "";
+      return {
+        channel: ch,
+        directory_name: nome,
+        directory_country: canal?.country ?? null,
+        directory_form_url: canal?.form_url ?? null,
+        directory_instructions: canal?.instructions ?? null,
+        company_categories: data.company_categories ?? [],
+        company_country: data.company_country ?? "BR",
+        email_to: "", email_subject: "", email_language: "pt-BR",
+        email_skip: true,
+        skip_status: "found_online",
+        skip_status_code: 200,
+        already_published: true,
+        profile_url: url,
+        email_error: `${nome} já tem a ficha publicada${url ? `: ${url}` : ""}. Nada foi reenviado. Para forçar, reenvie com ignore_published=true.`,
+      } as any;
+    }
+    return routeChannel(data, ch, byCode.get(ch) ?? null, lookupError);
+  });
 
   for (const routed of roteados.filter((r) => r.email_skip)) {
     const t0 = Date.now();
@@ -884,6 +939,8 @@ function finalResponse(data: Normalized, results: Record<string, any>, persistEr
     category_filter: data.ignore_category_filter ? "desligado" : "ligado",
     company_country: data.company_country ?? "BR",
     country_mismatch_count: vals.filter((v: any) => v.countryMismatch).length,
+    ja_publicados_count: vals.filter((v: any) => v.status === "found_online").length,
+    erro_ja_publicados: (data as any)._erro_ja_publicados ?? undefined,
     country_filter: data.ignore_country_filter ? "desligado" : "ligado",
     response_source: dryRun ? "dry_run" : "edge_function",
     fetch_error: persistErrors ? JSON.stringify(persistErrors) : null,
@@ -912,12 +969,16 @@ Deno.serve(async (req) => {
   const ignoraFiltro = payload.ignore_category_filter === true || payload.ignoreCategoryFilter === true;
   // Mesma ideia para o país: desliga só nesta chamada, para o caso deliberado.
   const ignoraPais = payload.ignore_country_filter === true || payload.ignoreCountryFilter === true;
+  // Força o reenvio mesmo onde a ficha já está no ar. Existe para o caso em que a ficha
+  // publicada está errada e se quer refazer de propósito.
+  const ignoraPublicados = payload.ignore_published === true || payload.ignorePublished === true;
 
   let data: Normalized;
   try {
     data = validateInput(payload);
     data.ignore_category_filter = ignoraFiltro;
     data.ignore_country_filter = ignoraPais;
+    data.ignore_published = ignoraPublicados;
   } catch (e: any) {
     return json({
       success: false,

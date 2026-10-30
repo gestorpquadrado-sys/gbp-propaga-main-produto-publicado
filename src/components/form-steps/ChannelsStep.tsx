@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { supabase } from '@/integrations/supabase/client';
 import type { DirectoryChannel } from '@/types/business-profile';
-import { Loader2, AlertCircle, ChevronDown, ChevronUp, Sparkles, Info } from 'lucide-react';
+import { Loader2, AlertCircle, ChevronDown, ChevronUp, Sparkles, Info, BadgeCheck, Pin, ExternalLink } from 'lucide-react';
 import {
   businessTypeOptions,
   detectBusinessTypeFromCategories,
@@ -16,6 +16,8 @@ import {
   SPECIAL_CHANNELS,
   type ChannelBusinessType,
 } from '@/data/channelRecommendations';
+
+import { listarCanaisPublicados } from '@/services/database-service';
 
 interface ChannelsStepProps {
   formData: any;
@@ -74,6 +76,22 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
   const [autoDetectedType, setAutoDetectedType] = useState<ChannelBusinessType>('general');
 
   const selectedChannels = formData.channels || [];
+
+  // Canais em que esta empresa JÁ tem perfil publicado. Ficam fixos no topo, marcados,
+  // e fora da seleção: repropagar onde já publicou é trabalho perdido no melhor caso e
+  // ficha duplicada no pior.
+  const [jaPublicados, setJaPublicados] = useState<Record<string, string>>({});
+
+  const idDaFicha: string = formData.google_location_id || formData.externalId || '';
+
+  useEffect(() => {
+    let vivo = true;
+    if (!idDaFicha) { setJaPublicados({}); return; }
+    listarCanaisPublicados(idDaFicha)
+      .then((m) => { if (vivo) setJaPublicados(m); })
+      .catch(() => { if (vivo) setJaPublicados({}); });
+    return () => { vivo = false; };
+  }, [idDaFicha]);
 
   const categoryTerms = useMemo(() => {
     const primary = formData.categories?.gbpPrimary ? [formData.categories.gbpPrimary] : [];
@@ -143,15 +161,25 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
   }, [businessType, directories, existingCodeSet]);
 
 
+  // Publicado vai para o TOPO, em cada uma das duas listas: é o que a pessoa precisa ver
+  // primeiro para não repetir trabalho, e fica fixo ali em vez de se perder no meio.
+  const publicadoPrimeiro = (lista: DirectoryChannel[]) =>
+    [...lista].sort((a, b) => {
+      const pa = jaPublicados[a.code] !== undefined ? 0 : 1;
+      const pb = jaPublicados[b.code] !== undefined ? 0 : 1;
+      if (pa !== pb) return pa - pb;
+      return (a.name || a.code).localeCompare(b.name || b.code, 'pt-BR');
+    });
+
   const relevantDirs = useMemo(
-    () => directories.filter((dir) => recommendedCodes.includes(dir.code)),
-    [directories, recommendedCodes]
+    () => publicadoPrimeiro(directories.filter((dir) => recommendedCodes.includes(dir.code))),
+    [directories, recommendedCodes, jaPublicados]
   );
 
   const otherDirs = useMemo(() => {
     const relevant = new Set([...recommendedCodes, ...SPECIAL_CHANNELS]);
-    return directories.filter((dir) => !relevant.has(dir.code));
-  }, [directories, recommendedCodes]);
+    return publicadoPrimeiro(directories.filter((dir) => !relevant.has(dir.code)));
+  }, [directories, recommendedCodes, jaPublicados]);
 
   const applyRecommendedChannels = (type = businessType) => {
     const codes = getRecommendedChannelCodes(type, false).filter((code) => existingCodeSet.has(code));
@@ -190,8 +218,12 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
   // Não é desperdício marcar fora do nicho: a propagação tem filtro de nicho e de país e
   // devolve o que pulou e por quê. Marcar tudo é dizer "tenta o que der".
   const todosOsCodigos = useMemo(
-    () => Array.from(new Set(directories.filter((d) => d.is_active !== false).map((d) => d.code))),
-    [directories],
+    () => Array.from(new Set(
+      directories
+        .filter((d) => d.is_active !== false && !jaPublicados[d.code])
+        .map((d) => d.code),
+    )),
+    [directories, jaPublicados],
   );
 
   const handleSelectAll = () => {
@@ -203,7 +235,9 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
   };
 
   const renderDirectoryCard = (dir: DirectoryChannel, variant: 'recommended' | 'special' | 'other' = 'recommended') => {
-    const selected = selectedChannels.includes(dir.code);
+    const publicadoEm = jaPublicados[dir.code];
+    const jaPublicado = publicadoEm !== undefined;
+    const selected = !jaPublicado && selectedChannels.includes(dir.code);
     const isSpecial = SPECIAL_CHANNELS.includes(dir.code);
     const methodLabel = getSubmissionTypeLabel(dir.submission_type);
     const checkLabel = getCheckStatusLabel(dir.last_check_status);
@@ -216,18 +250,26 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
       <div
         key={dir.code}
         className={`flex items-start space-x-3 p-4 rounded-lg border-2 transition-all ${
-          selected
-            ? 'border-primary bg-primary/5'
-            : isSpecial
-              ? 'border-amber-500/30 bg-amber-500/5 hover:border-amber-500/60'
-              : 'border-border hover:border-muted-foreground'
+          jaPublicado
+            ? 'border-emerald-500/50 bg-emerald-500/5'
+            : selected
+              ? 'border-primary bg-primary/5'
+              : isSpecial
+                ? 'border-amber-500/30 bg-amber-500/5 hover:border-amber-500/60'
+                : 'border-border hover:border-muted-foreground'
         }`}
       >
-        <Checkbox
-          id={`${variant}-${dir.code}`}
-          checked={selected}
-          onCheckedChange={(checked) => handleChannelToggle(dir.code, checked as boolean)}
-        />
+        {jaPublicado ? (
+          // Sem caixa de marcar: já está no ar, não entra na propagação. O ícone de
+          // alfinete diz que está fixo ali de propósito.
+          <Pin className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
+        ) : (
+          <Checkbox
+            id={`${variant}-${dir.code}`}
+            checked={selected}
+            onCheckedChange={(checked) => handleChannelToggle(dir.code, checked as boolean)}
+          />
+        )}
         <div className="flex-1 space-y-2">
           <Label htmlFor={`${variant}-${dir.code}`} className="flex flex-wrap items-center gap-2 cursor-pointer font-medium text-foreground">
             <span className="text-xl">{dir.icon || '📍'}</span>
@@ -251,7 +293,12 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
                 {checkLabel}
               </Badge>
             )}
-          </Label>
+                      {jaPublicado && (
+              <span className="inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 font-normal">
+                <BadgeCheck className="h-3 w-3" /> já publicado
+              </span>
+            )}
+</Label>
 
           {dir.description && <p className="text-sm text-muted-foreground">{dir.description}</p>}
 
@@ -262,6 +309,19 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
             {dir.requires_manual_review && <span>• Revisão manual</span>}
             {dir.requires_paid_plan && <span>• Pode exigir plano pago</span>}
             {dir.last_checked_at && <span>• Verificado: {new Date(dir.last_checked_at).toLocaleDateString('pt-BR')}</span>}
+            {jaPublicado && (
+              <span className="block mt-1 text-emerald-400">
+                Fora da sincronização: a ficha já está no ar.
+                {publicadoEm && (
+                  <>
+                    {' '}
+                    <a href={publicadoEm} target="_blank" rel="noreferrer" className="underline inline-flex items-center gap-1">
+                      ver perfil <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </>
+                )}
+              </span>
+            )}
           </div>
 
         </div>
@@ -331,6 +391,12 @@ Tipo detectado pela categoria principal: <strong className="text-foreground">{de
               <CardTitle className="text-foreground">Diretórios Recomendados</CardTitle>
               <CardDescription>
                 Selecionados automaticamente para {selectedBusinessTypeLabel}. O sistema só automatiza o que é seguro; formulários com login/captcha viram tarefas assistidas para evitar bloqueios e erros.
+                {Object.keys(jaPublicados).length > 0 && (
+                  <span className="block mt-2 text-emerald-400">
+                    {Object.keys(jaPublicados).length} diretório(s) já com a ficha no ar aparecem
+                    fixos no topo, fora da sincronização — não há o que repropagar lá.
+                  </span>
+                )}
               </CardDescription>
             </div>
             <div className="flex flex-wrap gap-2">
