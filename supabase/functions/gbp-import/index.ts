@@ -85,6 +85,21 @@ function horarios(loc: any): Record<string, { open: string; close: string }> {
   return h;
 }
 
+// O id da localização, sempre na MESMA forma.
+//
+// A API do Google devolve `name` como `locations/<id>` em um endpoint e como `<id>` em
+// outro, e já apareceu `accounts/<x>/locations/<id>`. Gravar cru criou DUAS fichas da
+// mesma localização para a Labitec (uma com prefixo, outra sem), e isso dobrou todas as
+// submissões dela — a restrição UNIQUE é por location_id, então duas fichas = duas
+// linhas por canal. Corrigido em 30/10/2026, junto com um índice único sobre o id
+// normalizado em google_locations.
+function idDaLocalizacao(nome: unknown): string {
+  const t = String(nome ?? "").trim();
+  if (!t) return t;
+  const partes = t.split("/");
+  return partes[partes.length - 1];
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   const json = (b: unknown, s = 200) =>
@@ -120,7 +135,7 @@ Deno.serve(async (req) => {
       const cats = loc.categories || {};
       const cep = ceps[i];
       return {
-        google_location_id: loc.name,
+        google_location_id: idDaLocalizacao(loc.name),
         google_place_id: loc.metadata?.placeId || "",
         google_maps_uri: loc.metadata?.mapsUri || "",
 

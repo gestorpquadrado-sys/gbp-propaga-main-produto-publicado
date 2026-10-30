@@ -206,13 +206,25 @@ Deno.serve(async (req) => {
           "advogados", "advocacia", "sociedade", "academia", "hotel", "pousada",
           "ltda", "eireli", "comercio", "servicos", "empresa", "grupo", "centro",
           "sao", "santo", "santa", "dos", "das", "and", "the",
+          "laboratorio", "tecnologia", "solucoes", "industria", "equipamentos",
+          "distribuidora", "transportadora", "construtora", "incorporadora",
+          "seguros", "corretora", "contabilidade", "consultoria", "assessoria",
+          "estofados", "tapecaria", "calcados", "moda", "masculina", "feminina",
         ];
         const semAcento = (t: string) =>
           t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        const distintivas = semAcento(negocio.name)
+        const palavras = semAcento(negocio.name)
           .replace(/[^a-z0-9]+/g, " ")
           .split(" ")
           .filter((w) => w.length >= 4 && !CATEGORIA.includes(w));
+        // A PRIMEIRA palavra é quase sempre a marca ("Piassa", "Labitec", "Mercotech").
+        // Exigir a marca, ou duas palavras do nome, ou o telefone.
+        //
+        // Sem isso o Yelp devolvia, para a "Labitec Laboratorio De Tecnologia", uma
+        // página de busca de "Mobile Phones" em Tijucas-SC: casava só por "tecnologia",
+        // que é genérica. Marca identifica; categoria não.
+        const marca = palavras[0] ?? "";
+        const distintivas = palavras;
         const foneFinal = (negocio.phone || "").replace(/\D/g, "").slice(-8);
 
         for (const o of org) {
@@ -222,11 +234,37 @@ Deno.serve(async (req) => {
             if (!(h === host || h.endsWith("." + host))) continue;
             if (!u.pathname || u.pathname === "/") continue;   // home não prova ficha
 
+            // Página de BUSCA ou de categoria do diretório não é ficha de empresa.
+            const caminho = semAcento(u.pathname + " " + u.search);
+            if (/(search|busca|buscar|find|pesquisa|categoria|category|lista|listing|result)/.test(caminho)) continue;
+            // marketplace de serviço expõe página de CATEGORIA por cidade, que parece
+            // ficha: /reformas-e-reparos/serralheria-e-solda/serralheria/sp/sao-carlos.
+            // Ficha de empresa não tem a UF como penúltimo segmento.
+            if (/\/(a[cplm]|ba|ce|df|es|go|m[agst]|p[abeir]|r[jnors]|s[cep]|to)\/[a-z0-9-]+\/?$/.test(caminho.trim())) continue;
+            if (/[?&](find_desc|find_loc|q|query|search|termo)=/i.test(u.search)) continue;
+
             const texto = semAcento(`${o.title ?? ""} ${o.snippet ?? ""} ${u.pathname}`);
             const digitos = (`${o.title ?? ""} ${o.snippet ?? ""}`).replace(/\D/g, "");
-            const casaNome = distintivas.length > 0 && distintivas.some((w) => texto.includes(w));
+            const quantasCasam = distintivas.filter((w) => texto.includes(w)).length;
+            const casaMarca = marca.length >= 4 && texto.includes(marca);
             const casaFone = foneFinal.length >= 8 && digitos.includes(foneFinal);
-            if (!casaNome && !casaFone) continue;              // é outra empresa
+            if (!casaMarca && quantasCasam < 2 && !casaFone) continue;
+
+            // A CIDADE tem de bater quando o resultado menciona lugar. Sem isto, a
+            // "Casa Nossa Materiais para Construção" de São Carlos casou com
+            // `waze.com/.../br/ce/materiais-de-construcao-casa-and-ci` — outra empresa,
+            // no Ceará, só porque "casa" e "construcao" apareciam. O telefone, quando
+            // bate, dispensa a cidade: é prova mais forte.
+            const cidade = semAcento(negocio.city || "").replace(/[^a-z0-9]+/g, " ").trim();
+            const uf = (negocio.state || "").toLowerCase().slice(0, 2);
+            if (!casaFone && cidade.length >= 4) {
+              const cidadeSemEspaco = cidade.replace(/\s+/g, "");
+              const textoSemEspaco = texto.replace(/[^a-z0-9]+/g, "");
+              const temCidade = texto.includes(cidade) || textoSemEspaco.includes(cidadeSemEspaco);
+              // outra UF escrita no caminho é contraprova: /br/ce/ para empresa de SP
+              const outraUf = uf && new RegExp(`/(?!${uf})(a[cplm]|ba|ce|df|es|go|m[agst]|p[abeir]|r[jnors]|s[cep]|to)/`).test(caminho);
+              if (!temCidade || outraUf) continue;
+            }
 
             return { link: u.toString(), resultados: org.length, erro: null };
           } catch { /* link torto */ }
