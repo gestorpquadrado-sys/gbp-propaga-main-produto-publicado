@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Building2, Loader2, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { Simbolo, Logotipo } from '@/components/Marca';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Auth = () => {
@@ -86,12 +87,10 @@ const Auth = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-8 gap-3">
-          <div className="w-14 h-14 bg-gradient-to-br from-brand-purple to-brand-magenta rounded-xl flex items-center justify-center">
-            <Building2 className="h-8 w-8 text-white" />
-          </div>
+          <Simbolo className="w-16 h-16" />
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground">pquadrado</h1>
-            <p className="text-sm text-muted-foreground">Estratégias que Vencem</p>
+            <Logotipo className="h-7 mx-auto" />
+            <p className="text-sm text-muted-foreground mt-2">P² Local Listings</p>
           </div>
         </div>
 

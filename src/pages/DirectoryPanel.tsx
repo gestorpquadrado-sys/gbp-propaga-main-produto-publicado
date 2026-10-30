@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
 import type React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Building2, ArrowLeft, CheckCircle2, Mail, XCircle, Clock, RefreshCw, ClipboardList, SearchCheck, SearchX, ExternalLink, Copy, PlayCircle } from 'lucide-react';
+import { Building2, ArrowLeft, CheckCircle2, Mail, XCircle, Clock, RefreshCw, ClipboardList, SearchCheck, SearchX, ExternalLink, Copy, PlayCircle, Settings } from 'lucide-react';
 import type { ChannelResult } from '@/types/business-profile';
 import { getDirectoryStatusByGoogleLocationId, saveDirectorySubmissionProfileUrl } from '@/services/database-service';
+import { usePapel } from '@/hooks/usePapel';
+import { Logotipo } from '@/components/Marca';
+import { appEnv } from '@/lib/env';
 
 interface DirectoryStatus {
   updatedAt: string;
   results: Record<string, ChannelResult>;
 }
 
-const VERIFY_ENDPOINT = import.meta.env.VITE_DIRECTORY_VERIFY_ENDPOINT || 'https://webhook.pquadrado.com.br/webhook/p2/directory-submissions/verify';
+// Passa pelo appEnv em vez de ler import.meta.env aqui: este arquivo tinha o PRÓPRIO
+// fallback para webhook.pquadrado.com.br, a VPS escalada para zero, driblando a
+// correção feita no env.ts.
+const VERIFY_ENDPOINT = appEnv.directoryVerifyEndpoint;
 
 const channelIcons: Record<string, string> = {
   google: '🔍',
@@ -96,6 +102,8 @@ function buildCopyText(result: ChannelResult, channel: string) {
 const DirectoryPanel = () => {
   const { locationId } = useParams<{ locationId: string }>();
   const navigate = useNavigate();
+  // Mesmo caso do LocationSelector: cabeçalho próprio, não o componente Header.
+  const { naEquipe } = usePapel();
   const [status, setStatus] = useState<DirectoryStatus | null>(null);
   const [locationName, setLocationName] = useState<string>('');
   const [isVerifying, setIsVerifying] = useState(false);
@@ -185,21 +193,30 @@ const DirectoryPanel = () => {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-brand-purple to-brand-magenta rounded-lg flex items-center justify-center">
-              <Building2 className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-foreground">pquadrado</h1>
+            <Logotipo className="h-8" />
+            <div className="hidden sm:block border-l border-border pl-3">
+              <p className="text-sm font-medium text-foreground">P² Local Listings</p>
               <p className="text-xs text-muted-foreground">Painel de Diretórios</p>
             </div>
           </div>
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar
-          </button>
+          <div className="flex items-center gap-4">
+            {naEquipe && (
+              <button
+                onClick={() => navigate('/configuracoes')}
+                className="flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-md text-foreground hover:bg-card transition-colors"
+              >
+                <Settings className="h-4 w-4" />
+                Configurações
+              </button>
+            )}
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Voltar
+            </button>
+          </div>
         </div>
       </header>
 

@@ -1,6 +1,7 @@
-import { Building2, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePapel } from "@/hooks/usePapel";
+import { Logotipo } from "@/components/Marca";
 
 const Header = () => {
   // O link da Equipe só aparece para quem está em authorized_users: para os outros
@@ -11,13 +12,13 @@ const Header = () => {
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-brand-purple to-brand-magenta rounded-lg flex items-center justify-center">
-            <Building2 className="h-6 w-6 text-white" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-foreground">pquadrado</h1>
-            <p className="text-xs text-muted-foreground">Estratégias que Vencem</p>
-          </div>
+          <a href="/" className="flex items-center gap-3">
+            <Logotipo className="h-8" />
+            <div className="hidden sm:block border-l border-border pl-3">
+              <p className="text-sm font-medium text-foreground">P² Local Listings</p>
+              <p className="text-xs text-muted-foreground">Estratégias que Vencem</p>
+            </div>
+          </a>
         </div>
         
         <nav className="flex items-center gap-2">

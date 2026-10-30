@@ -1,10 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Loader2, UserPlus, Trash2, ShieldCheck, ShieldOff, Copy, KeyRound, AlertTriangle, Eye, EyeOff } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { Loader2, UserPlus, Trash2, Copy, KeyRound, AlertTriangle, Eye, EyeOff, Pencil, Save, X, Info } from 'lucide-react';
 import Header from '@/components/Header';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePapel } from '@/hooks/usePapel';
 import { appEnv } from '@/lib/env';
+
+/**
+ * Esta tela é usada sozinha em /equipe e também dentro da aba de Configurações;
+ * `semMoldura` tira o Header e o container, que o hub já desenha.
+ *
+ * Precisa viver FORA do componente. Quando estava declarada dentro, cada tecla
+ * digitada criava uma função nova, o React entendia como outro tipo de componente,
+ * desmontava a árvore inteira e remontava — o input era destruído e recriado, e o
+ * cursor saía do campo a cada letra.
+ */
+const Moldura = ({ semMoldura, children }: { semMoldura: boolean; children: ReactNode }) =>
+  semMoldura ? <>{children}</> : (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <div className="container mx-auto px-6 py-10 max-w-4xl">{children}</div>
+    </div>
+  );
 
 type Usuario = {
   email: string;
@@ -36,6 +54,11 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
   const [papelNovo, setPapelNovo] = useState('user');
   const [enviando, setEnviando] = useState(false);
   const [senhaGerada, setSenhaGerada] = useState<{ email: string; senha: string } | null>(null);
+
+  const [editando, setEditando] = useState<string | null>(null);
+  const [edNome, setEdNome] = useState('');
+  const [edPapel, setEdPapel] = useState('user');
+  const [salvandoEd, setSalvandoEd] = useState(false);
 
   const [minhaSenha, setMinhaSenha] = useState('');
   const [trocando, setTrocando] = useState(false);
@@ -95,20 +118,45 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
     }
   };
 
-  const mudarPapel = async (u: Usuario) => {
-    const novo = u.papel === 'admin' ? 'user' : 'admin';
-    const texto = novo === 'admin'
-      ? `Tornar ${u.email} administrador? Ela poderá adicionar e remover pessoas.`
-      : `Rebaixar ${u.email} para usuário comum?`;
-    if (!window.confirm(texto)) return;
+  const abrirEdicao = (u: Usuario) => {
+    setEditando(u.email);
+    setErro(null);
+    setAviso(null);
+    setEdNome(u.nome ?? '');
+    setEdPapel(u.papel);
+  };
+
+  const salvarEdicao = async (u: Usuario) => {
+    setSalvandoEd(true);
     setErro(null);
     try {
-      await chamar({ acao: 'papel', email: u.email, papel: novo });
+      await chamar({ acao: 'editar', email: u.email, nome: edNome.trim(), papel: edPapel });
+      setEditando(null);
+      setAviso(`${edNome.trim() || u.email} salvo.`);
       await recarregar();
     } catch (e) {
-      setErro(e instanceof Error ? e.message : 'Não foi possível mudar o papel');
+      setErro(e instanceof Error ? e.message : 'Não foi possível salvar');
+    } finally {
+      setSalvandoEd(false);
     }
   };
+
+  const redefinirSenha = async (u: Usuario) => {
+    if (!window.confirm(
+      `Gerar uma senha nova para ${u.email}?\n\nA senha atual deixa de funcionar na hora, ` +
+      'e a nova aparece aqui uma única vez.'
+    )) return;
+    setErro(null);
+    setAviso(null);
+    setSenhaGerada(null);
+    try {
+      const d = await chamar({ acao: 'senha', email: u.email });
+      if (d.senha_temporaria) setSenhaGerada({ email: d.email, senha: d.senha_temporaria });
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não foi possível redefinir a senha');
+    }
+  };
+
 
   const remover = async (u: Usuario) => {
     if (!window.confirm(`Remover o acesso de ${u.email}? A conta dela é apagada e ela perde o login.`)) return;
@@ -142,19 +190,9 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
     }
   };
 
-  // Esta tela é usada sozinha em /equipe e também dentro da aba de Configurações.
-  // `semMoldura` tira o Header e o container, que o hub já desenha.
-  const Moldura = ({ children }: { children: React.ReactNode }) =>
-    semMoldura ? <>{children}</> : (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="container mx-auto px-6 py-10 max-w-4xl">{children}</div>
-      </div>
-    );
-
   if (carregandoPapel || carregando) {
     return (
-      <Moldura>
+      <Moldura semMoldura={semMoldura}>
         <div className="flex items-center justify-center py-24">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
@@ -164,7 +202,7 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
 
   if (!naEquipe) {
     return (
-      <Moldura>
+      <Moldura semMoldura={semMoldura}>
         <div className="max-w-xl">
           <div className="bg-card border border-border rounded-xl p-8 text-center">
             <AlertTriangle className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
@@ -179,7 +217,7 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
   }
 
   return (
-    <Moldura>
+    <Moldura semMoldura={semMoldura}>
       <div>
         <div className="mb-8">
           <h2 className="text-lg font-semibold text-foreground">Equipe</h2>
@@ -254,9 +292,27 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
                 </select>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              Administrador também adiciona e remove pessoas. Em caso de dúvida, escolha Usuário.
-            </p>
+            <div className="mt-4 rounded-lg border border-border bg-background/50 p-4">
+              <p className="text-xs font-medium text-foreground flex items-center gap-1.5 mb-2">
+                <Info className="h-3.5 w-3.5 text-primary" /> O que cada papel faz
+              </p>
+              <p className="text-xs text-muted-foreground">
+                <strong className="text-foreground">Usuário</strong> — é quem opera o dia a dia: vê
+                todos os clientes, abre o formulário de cada diretório com os dados prontos para
+                colar, roda a sincronização, marca o que já foi publicado e troca a própria senha.
+                Vê as abas Canais e Descobrir, mas sem poder alterar nada nelas.
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                <strong className="text-foreground">Administrador</strong> — tudo acima, mais:
+                adicionar, editar e remover pessoas, redefinir senha de outros, alterar o catálogo de
+                diretórios (ligar, desligar, mudar formulário, nicho e país) e cadastrar diretório
+                novo pela aba Descobrir.
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Em caso de dúvida escolha <strong className="text-foreground">Usuário</strong>: dá
+                para promover depois em dois cliques.
+              </p>
+            </div>
             <button
               type="submit"
               disabled={enviando}
@@ -293,25 +349,78 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
                         : 'sem conta criada'}
                     </p>
                   </div>
-                  {ehAdmin && !souEu && (
+                  {ehAdmin && (
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => mudarPapel(u)}
+                        onClick={() => (editando === u.email ? setEditando(null) : abrirEdicao(u))}
                         className="px-3 py-1.5 text-xs border border-border rounded-md hover:bg-background transition-colors flex items-center gap-1.5 text-foreground"
-                        title={u.papel === 'admin' ? 'Rebaixar para usuário' : 'Tornar administrador'}
                       >
-                        {u.papel === 'admin'
-                          ? <><ShieldOff className="h-3.5 w-3.5" /> Rebaixar</>
-                          : <><ShieldCheck className="h-3.5 w-3.5" /> Tornar admin</>}
+                        <Pencil className="h-3.5 w-3.5" /> {editando === u.email ? 'Fechar' : 'Editar'}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => remover(u)}
-                        className="px-3 py-1.5 text-xs border border-destructive/40 text-destructive rounded-md hover:bg-destructive/10 transition-colors flex items-center gap-1.5"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" /> Remover
-                      </button>
+                      {u.tem_conta && (
+                        <button
+                          type="button"
+                          onClick={() => redefinirSenha(u)}
+                          className="px-3 py-1.5 text-xs border border-border rounded-md hover:bg-background transition-colors flex items-center gap-1.5 text-foreground"
+                          title="Gera uma senha nova e mostra aqui uma única vez"
+                        >
+                          <KeyRound className="h-3.5 w-3.5" /> Senha
+                        </button>
+                      )}
+                      {!souEu && (
+                        <button
+                          type="button"
+                          onClick={() => remover(u)}
+                          className="px-3 py-1.5 text-xs border border-destructive/40 text-destructive rounded-md hover:bg-destructive/10 transition-colors flex items-center gap-1.5"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" /> Remover
+                        </button>
+                      )}
+                    </div>
+                  )}
+                  {ehAdmin && editando === u.email && (
+                    <div className="w-full border-t border-border pt-4 mt-1 grid gap-4 sm:grid-cols-[1fr_auto_auto] items-end">
+                      <div>
+                        <label className="block text-xs font-medium text-foreground mb-1">Nome</label>
+                        <input className={campo} value={edNome} onChange={(e) => setEdNome(e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-foreground mb-1">Papel</label>
+                        <select
+                          className={campo}
+                          value={edPapel}
+                          onChange={(e) => setEdPapel(e.target.value)}
+                          disabled={souEu}
+                          title={souEu ? 'Você não pode mudar o seu próprio papel' : undefined}
+                        >
+                          <option value="user">Usuário</option>
+                          <option value="admin">Administrador</option>
+                        </select>
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => salvarEdicao(u)}
+                          disabled={salvandoEd}
+                          className="px-3 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground font-semibold rounded-md flex items-center gap-2 disabled:opacity-50"
+                        >
+                          {salvandoEd ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                          Salvar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditando(null)}
+                          className="px-3 py-2 text-sm border border-border rounded-md hover:bg-background transition-colors text-foreground flex items-center gap-1.5"
+                        >
+                          <X className="h-4 w-4" /> Cancelar
+                        </button>
+                      </div>
+                      <p className="sm:col-span-3 text-xs text-muted-foreground">
+                        O e-mail não muda: ele é a chave do acesso. Para trocar de e-mail, remova e
+                        cadastre de novo.
+                        {souEu && ' E você não pode mudar o seu próprio papel.'}
+                      </p>
                     </div>
                   )}
                 </li>
