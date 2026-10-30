@@ -57,7 +57,10 @@ const dataCurta = (v: string | null) =>
   v ? new Date(v).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '—';
 
 const Canais = () => {
-  const { ehAdmin, naEquipe, carregando: carregandoPapel } = usePapel();
+  // O catálogo é editável por quem OPERA: quem cadastra nos diretórios é quem
+  // descobre que um form_url mudou ou que o diretório morreu. Exigir admin para
+  // isso só criava gargalo. Gerir PESSOAS segue sendo só-admin, na aba Equipe.
+  const { naEquipe, carregando: carregandoPapel } = usePapel();
   const [canais, setCanais] = useState<Canal[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
@@ -187,10 +190,10 @@ const Canais = () => {
           <h2 className="text-lg font-semibold text-foreground">Canais de diretório</h2>
           <p className="text-sm text-muted-foreground mt-1">
             {canais.length} canais · {ativos} ativos · {mortas} com caixa de e-mail provada morta
-            {!ehAdmin && ' · só leitura (você não é administrador)'}
+            {''}
           </p>
         </div>
-        {ehAdmin && (
+        {naEquipe && (
           <button
             type="button"
             onClick={conferirAgora}
@@ -274,7 +277,7 @@ const Canais = () => {
                     <p className="text-xs text-muted-foreground mt-1 italic">{c.email_evidence}</p>
                   )}
                 </div>
-                {ehAdmin && (
+                {naEquipe && (
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
@@ -294,7 +297,7 @@ const Canais = () => {
                 )}
               </div>
 
-              {aberto && ehAdmin && (
+              {aberto && naEquipe && (
                 <div className="px-5 pb-5 pt-1 border-t border-border bg-background/40">
                   <div className="grid gap-4 sm:grid-cols-2 mt-4">
                     <div>

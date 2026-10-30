@@ -297,20 +297,21 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
                 <Info className="h-3.5 w-3.5 text-primary" /> O que cada papel faz
               </p>
               <p className="text-xs text-muted-foreground">
-                <strong className="text-foreground">Usuário</strong> — é quem opera o dia a dia: vê
+                <strong className="text-foreground">Usuário</strong> — opera o produto inteiro: vê
                 todos os clientes, abre o formulário de cada diretório com os dados prontos para
                 colar, roda a sincronização, marca o que já foi publicado e troca a própria senha.
-                Vê as abas Canais e Descobrir, mas sem poder alterar nada nelas.
+                Também <strong className="text-foreground">mexe no catálogo de diretórios</strong>:
+                liga, desliga, corrige formulário, nicho e país, e cadastra diretório novo pela aba
+                Descobrir. É quem cadastra que descobre essas coisas.
               </p>
               <p className="text-xs text-muted-foreground mt-2">
-                <strong className="text-foreground">Administrador</strong> — tudo acima, mais:
-                adicionar, editar e remover pessoas, redefinir senha de outros, alterar o catálogo de
-                diretórios (ligar, desligar, mudar formulário, nicho e país) e cadastrar diretório
-                novo pela aba Descobrir.
+                <strong className="text-foreground">Administrador</strong> — tudo acima, mais o
+                controle de quem entra: adicionar, editar e remover pessoas e redefinir a senha de
+                outros. É a única diferença entre os dois papéis.
               </p>
               <p className="text-xs text-muted-foreground mt-2">
                 Em caso de dúvida escolha <strong className="text-foreground">Usuário</strong>: dá
-                para promover depois em dois cliques.
+                para promover depois em dois cliques, no botão Editar da linha da pessoa.
               </p>
             </div>
             <button
