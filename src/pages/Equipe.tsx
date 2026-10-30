@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Loader2, UserPlus, Trash2, Copy, KeyRound, AlertTriangle, Eye, EyeOff, Pencil, Save, X, Info } from 'lucide-react';
+import { Loader2, UserPlus, Trash2, Copy, KeyRound, AlertTriangle, Eye, EyeOff, Pencil, Save, X, Info, Mail } from 'lucide-react';
 import Header from '@/components/Header';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -141,6 +141,17 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
     }
   };
 
+  const reenviarConvite = async (u: Usuario) => {
+    setErro(null);
+    setAviso(null);
+    try {
+      const d = await chamar({ acao: 'convite', email: u.email });
+      setAviso(d.aviso ?? `Convite reenviado para ${u.email}.`);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Não foi possível enviar o convite');
+    }
+  };
+
   const redefinirSenha = async (u: Usuario) => {
     if (!window.confirm(
       `Gerar uma senha nova para ${u.email}?\n\nA senha atual deixa de funcionar na hora, ` +
@@ -243,7 +254,8 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
                   Senha temporária de {senhaGerada.email}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Aparece uma única vez. Passe por um canal seguro e peça para trocar no primeiro acesso.
+                  Normalmente não precisa: a pessoa recebe por e-mail um link para definir a própria
+                  senha. Esta é reserva, para o caso de o e-mail não chegar. Aparece uma única vez.
                 </p>
                 <div className="flex items-center gap-2 mt-3">
                   <code className="px-3 py-2 bg-background border border-border rounded-md text-foreground font-mono text-sm">
@@ -320,8 +332,12 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
               className="mt-4 px-4 py-2.5 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold rounded-md flex items-center justify-center gap-2 disabled:opacity-50 transition-colors"
             >
               {enviando && <Loader2 className="h-4 w-4 animate-spin" />}
-              Criar acesso
+              Criar acesso e enviar convite
             </button>
+            <p className="text-xs text-muted-foreground mt-2">
+              A pessoa recebe um e-mail com link para definir a própria senha. O link vale 1 hora —
+              se expirar, use o botão Convite na linha dela.
+            </p>
           </form>
         )}
 
@@ -359,6 +375,16 @@ const Equipe = ({ semMoldura = false }: { semMoldura?: boolean }) => {
                       >
                         <Pencil className="h-3.5 w-3.5" /> {editando === u.email ? 'Fechar' : 'Editar'}
                       </button>
+                      {u.tem_conta && (
+                        <button
+                          type="button"
+                          onClick={() => reenviarConvite(u)}
+                          className="px-3 py-1.5 text-xs border border-border rounded-md hover:bg-background transition-colors flex items-center gap-1.5 text-foreground"
+                          title="Manda um e-mail com link para a pessoa definir a própria senha"
+                        >
+                          <Mail className="h-3.5 w-3.5" /> Convite
+                        </button>
+                      )}
                       {u.tem_conta && (
                         <button
                           type="button"
