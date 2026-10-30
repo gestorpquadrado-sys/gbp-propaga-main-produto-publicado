@@ -212,6 +212,27 @@ export async function saveImportedLocations(locations: GoogleLocation[]): Promis
 // O `user_id` continua sendo GRAVADO ao criar (é a dona do registro), mas não filtra
 // mais na leitura.
 
+/**
+ * Acha a ficha pelo id do Google, tolerando os dois formatos e id repetido.
+ *
+ * `maybeSingle()` lança exceção quando a consulta devolve mais de uma linha, e foi isso
+ * que quebrou o "marcar preenchido" em 30/10/2026: existiam duas fichas com o mesmo id
+ * do Google, de donos diferentes. Aqui a mais antiga ganha — é a original — e o id é
+ * buscado com e sem o prefixo `locations/`, porque a API do GBP devolve dos dois jeitos.
+ */
+async function acharFicha(googleLocationId: string): Promise<{ id: string } | null> {
+  const cru = (googleLocationId || '').trim();
+  const semPrefixo = cru.replace(/^locations\//, '');
+  const { data, error } = await supabase
+    .from('google_locations')
+    .select('id, created_at')
+    .in('google_location_id', [semPrefixo, `locations/${semPrefixo}`])
+    .order('created_at', { ascending: true })
+    .limit(1);
+  if (error) throw error;
+  return (data && data[0]) ? { id: (data[0] as { id: string }).id } : null;
+}
+
 export async function listUserLocations(): Promise<GoogleLocation[]> {
   const { data, error } = await supabase
     .from('google_locations')
@@ -355,10 +376,12 @@ function buildAssistedSearchUrl(params: {
 }
 
 export async function getDirectoryStatusByGoogleLocationId(googleLocationId: string) {
+  const achada = await acharFicha(googleLocationId);
+  if (!achada) return null;
   const { data: location, error: locationError } = await supabase
     .from('google_locations')
     .select('id,name,phone_primary,address_city,address_state,address_postal_code')
-    .eq('google_location_id', googleLocationId)
+    .eq('id', achada.id)
     .maybeSingle();
   if (locationError) throw locationError;
   if (!location) return null;
@@ -438,12 +461,7 @@ export async function saveDirectorySubmissionProfileUrl(
     throw new Error('Informe uma URL válida começando com http:// ou https://');
   }
 
-  const { data: location, error: locationError } = await supabase
-    .from('google_locations')
-    .select('id')
-    .eq('google_location_id', googleLocationId)
-    .maybeSingle();
-  if (locationError) throw locationError;
+  const location = await acharFicha(googleLocationId);
   if (!location) throw new Error('Localização não encontrada');
 
   const { error } = await supabase
@@ -476,12 +494,7 @@ export async function marcarFormularioPreenchido(
   nota?: string,
 ): Promise<void> {
   const { data: u } = await supabase.auth.getUser();
-  const { data: location, error: locationError } = await supabase
-    .from('google_locations')
-    .select('id')
-    .eq('google_location_id', googleLocationId)
-    .maybeSingle();
-  if (locationError) throw locationError;
+  const location = await acharFicha(googleLocationId);
   if (!location) throw new Error('Localização não encontrada');
 
   const { error } = await supabase

@@ -27,28 +27,16 @@ const LocationSelector = () => {
   const fetchLocations = async () => {
     setLoading(true);
     try {
-      const storedLocations = await listUserLocations();
-      if (storedLocations.length > 0) {
+              const storedLocations = await listUserLocations();
         setLocations(storedLocations);
-        return;
-      }
 
-      const { data: sessionData } = await supabase.auth.getSession();
-      const token = sessionData.session?.access_token;
-      const response = await fetch(appEnv.gbpImportEndpoint, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const imported = data.locations || [];
-        if (imported.length > 0) await saveImportedLocations(imported);
-        setLocations(imported);
-      }
+        // NÃO importar do Google automaticamente quando a lista vem vazia.
+        //
+        // Era o que estava aqui, e virou um estrago em 30/10/2026: o Ícaro entrou, a
+        // consulta ainda filtrava por user_id e devolveu zero empresas, então a tela
+        // importou a base inteira do Google e gravou 54 empresas e 54 fichas DUPLICADAS
+        // no nome dele. Importação é ato deliberado — existe o botão de importar do
+        // Google para isso. Lista vazia agora é só lista vazia.
     } catch (error) {
       console.warn('Falha ao carregar empresas', error);
     } finally {

@@ -182,6 +182,22 @@ const ChannelsStep = ({ formData, updateFormData }: ChannelsStepProps) => {
     updateFormData('channels', allCodes);
   };
 
+  // Selecionar TODO o catálogo, não só os recomendados do nicho.
+  //
+  // Antes só havia "Selecionar visíveis", que pegava apenas os recomendados — os
+  // "outros diretórios" ficavam de fora e não havia como marcar todos de uma vez.
+  //
+  // Não é desperdício marcar fora do nicho: a propagação tem filtro de nicho e de país e
+  // devolve o que pulou e por quê. Marcar tudo é dizer "tenta o que der".
+  const todosOsCodigos = useMemo(
+    () => Array.from(new Set(directories.filter((d) => d.is_active !== false).map((d) => d.code))),
+    [directories],
+  );
+
+  const handleSelectAll = () => {
+    updateFormData('channels', todosOsCodigos);
+  };
+
   const handleDeselectAll = () => {
     updateFormData('channels', []);
   };
@@ -322,7 +338,10 @@ Tipo detectado pela categoria principal: <strong className="text-foreground">{de
                 Aplicar recomendados
               </Button>
               <Button variant="outline" size="sm" onClick={handleSelectAllVisible}>
-                Selecionar visíveis
+                Só os recomendados
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleSelectAll}>
+                Selecionar todos ({todosOsCodigos.length})
               </Button>
               <Button variant="outline" size="sm" onClick={handleDeselectAll}>
                 Limpar
