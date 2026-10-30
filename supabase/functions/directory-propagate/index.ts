@@ -167,6 +167,31 @@ function canalServePais(row: any, paisEmpresa: string) {
 }
 
 // --------------------------------------------------------------------------
+// Formatação para humano (só na APRESENTAÇÃO, nunca no dado guardado)
+// --------------------------------------------------------------------------
+// O dado é normalizado para dígitos puros na entrada, que é o certo para guardar e
+// para API. O problema é que ele saía cru também no e-mail e no bloco de copiar/colar,
+// os dois lugares onde uma PESSOA do outro lado lê para cadastrar: "1633831000" e
+// "13560000". Quem recebe tem de contar dígito para saber se há DDD.
+function exibirTelefone(v: unknown): string {
+  const b = String(v ?? "").trim();
+  if (!b) return "";
+  if (b.startsWith("+") && !b.startsWith("+55")) return b;        // estrangeiro: não mexer
+  const d = b.replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, ""); // tira o +55 do Brasil
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;  // celular
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;  // fixo
+  if (d.length === 9) return `${d.slice(0, 5)}-${d.slice(5)}`;    // sem DDD
+  if (d.length === 8) return `${d.slice(0, 4)}-${d.slice(4)}`;
+  return b;                                                       // formato estranho: como veio
+}
+
+function exibirCep(v: unknown): string {
+  const b = String(v ?? "").trim();
+  const d = b.replace(/\D/g, "");
+  return d.length === 8 ? `${d.slice(0, 5)}-${d.slice(5)}` : b;
+}
+
+// --------------------------------------------------------------------------
 // 1. Validate Input
 // --------------------------------------------------------------------------
 type Normalized = Record<string, any>;
@@ -500,15 +525,15 @@ function generateEmailBody(data: any): string {
     ["Nome da empresa", data.name],
     ["Categoria", data.category],
     ["Descrição", data.description],
-    ["Telefone", data.phone_primary],
-    ["WhatsApp", data.phone_whatsapp],
+    ["Telefone", exibirTelefone(data.phone_primary)],
+    ["WhatsApp", exibirTelefone(data.phone_whatsapp)],
     ["E-mail", data.email],
     ["Site", data.website],
     ["Endereço", `${data.address_street}${data.address_number ? ", " + data.address_number : ""}`],
     ["Complemento", data.address_complement],
     ["Bairro", data.address_neighborhood],
     ["Cidade/UF", `${data.address_city} - ${data.address_state}`],
-    ["CEP", data.address_zip],
+    ["CEP", exibirCep(data.address_zip)],
     ["Google Location ID", data.google_location_id || data.gbp_location_id],
     ["Google Place ID", data.google_place_id],
   ];
@@ -568,8 +593,8 @@ function copyPayload(d: any) {
     "Nome da empresa": d.name || "",
     "Categoria": d.category || "",
     "Descrição": d.description || "",
-    "Telefone": d.phone_primary || "",
-    "WhatsApp": d.phone_whatsapp || "",
+    "Telefone": exibirTelefone(d.phone_primary),
+    "WhatsApp": exibirTelefone(d.phone_whatsapp),
     "E-mail": d.email || "",
     "Site": d.website || "",
     "Endereço": `${d.address_street || ""}${d.address_number ? ", " + d.address_number : ""}`,
@@ -577,7 +602,7 @@ function copyPayload(d: any) {
     "Bairro": d.address_neighborhood || "",
     "Cidade": d.address_city || "",
     "Estado": d.address_state || "",
-    "CEP": d.address_zip || "",
+    "CEP": exibirCep(d.address_zip),
     "Google Location ID": d.google_location_id || d.gbp_location_id || "",
     "Google Place ID": d.google_place_id || "",
   };

@@ -121,6 +121,25 @@ export interface DirectoryChannel {
   last_check_http_status?: number | null;
   last_check_message?: string | null;
   notes?: string | null;
+
+  // Caminho de cadastro e verificação. Faltavam aqui, embora a tela já lesse os dois:
+  // o ChannelsStep usa form_url para o botão de cadastro assistido e
+  // auto_submit_supported para saber se dá para enviar sozinho.
+  form_url?: string | null;
+  auto_submit_supported?: boolean | null;
+  assisted_submit?: boolean | null;
+  verification_method?: string | null;
+  verification_url_template?: string | null;
+  search_url_template?: string | null;
+  last_submission_mode?: string | null;
+  category?: string | null;
+  language?: string | null;
+  instructions?: string | null;
+
+  // Veredito da caixa de e-mail do canal, para o health-check não reativar caixa morta.
+  email_status?: 'entrega_ok' | 'bounce' | 'sem_mx' | 'null_mx' | 'nao_existe' | 'indeterminado' | string | null;
+  email_checked_at?: string | null;
+  email_evidence?: string | null;
 }
 
 
