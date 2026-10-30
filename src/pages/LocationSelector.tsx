@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Building2, MapPin, Phone, Tag, Plus, Loader2, LogOut, Search, X, Settings } from 'lucide-react';
+import { Building2, MapPin, Phone, Tag, Plus, Loader2, LogOut, Search, X, Settings, BadgeCheck, CheckSquare } from 'lucide-react';
 import { GoogleImportModal } from '@/components/GoogleImportModal';
 import type { GoogleLocation } from '@/components/GoogleImportModal';
 import { useAuth } from '@/contexts/AuthContext';
@@ -19,10 +19,31 @@ const LocationSelector = () => {
   const [locations, setLocations] = useState<GoogleLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  // Quantos perfis CONFIRMADOS e quantos formulários marcados como preenchidos cada
+  // ficha tem. Sem isto, saber onde a empresa já está publicada exigia abrir as 55
+  // uma por uma — o dado existia no banco e não aparecia em lugar nenhum da lista.
+  const [resumo, setResumo] = useState<Record<string, { confirmados: number; preenchidos: number }>>({});
+  const [filtroPerfil, setFiltroPerfil] = useState<'todas' | 'com' | 'sem'>('todas');
 
   useEffect(() => {
     fetchLocations();
+    carregarResumo();
   }, []);
+
+  const carregarResumo = async () => {
+    const { data } = await supabase
+      .from('directory_submissions')
+      .select('location_id, verification_status, filled_at');
+    const mapa: Record<string, { confirmados: number; preenchidos: number }> = {};
+    for (const r of (data ?? []) as { location_id: string | null; verification_status: string | null; filled_at: string | null }[]) {
+      if (!r.location_id) continue;
+      const atual = mapa[r.location_id] ?? { confirmados: 0, preenchidos: 0 };
+      if (r.verification_status === 'found_online') atual.confirmados += 1;
+      if (r.filled_at) atual.preenchidos += 1;
+      mapa[r.location_id] = atual;
+    }
+    setResumo(mapa);
+  };
 
   const fetchLocations = async () => {
     setLoading(true);
@@ -75,6 +96,16 @@ const LocationSelector = () => {
       })
     : locations;
 
+  // Filtro por situação do perfil, somado à busca por texto.
+  const locaisVisiveis = filteredLocations.filter((l) => {
+    if (filtroPerfil === 'todas') return true;
+    const tem = (resumo[l.id]?.confirmados ?? 0) > 0;
+    return filtroPerfil === 'com' ? tem : !tem;
+  });
+
+  const comPerfil = locations.filter((l) => (resumo[l.id]?.confirmados ?? 0) > 0).length;
+  const totalPerfis = Object.values(resumo).reduce((a, r) => a + r.confirmados, 0);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -113,6 +144,31 @@ const LocationSelector = () => {
             <div>
               <h2 className="text-3xl font-bold text-foreground">Empresas</h2>
               <p className="text-muted-foreground mt-1">Selecione uma empresa para sincronizar ou ver o painel</p>
+              {locations.length > 0 && (
+                <div className="flex items-center gap-3 mt-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <BadgeCheck className="h-4 w-4 text-emerald-500" />
+                    <strong className="text-foreground">{comPerfil}</strong> de {locations.length} com perfil publicado
+                    {totalPerfis > 0 && <span>· {totalPerfis} perfis no total</span>}
+                  </span>
+                  <div className="flex gap-1">
+                    {([['todas', 'Todas'], ['com', 'Com perfil'], ['sem', 'Sem perfil']] as const).map(([v, rotulo]) => (
+                      <button
+                        key={v}
+                        type="button"
+                        onClick={() => setFiltroPerfil(v)}
+                        className={`px-2.5 py-1 text-xs rounded-md border transition-colors ${
+                          filtroPerfil === v
+                            ? 'border-primary bg-primary/10 text-foreground'
+                            : 'border-border text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        {rotulo}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
             <div className="flex gap-3">
               <GoogleImportModal onSelect={handleSelectLocation} />
@@ -163,7 +219,7 @@ const LocationSelector = () => {
               <p className="text-muted-foreground text-lg">Nenhuma empresa encontrada</p>
               <p className="text-muted-foreground text-sm">Use o botão "Importar do Google Meu Negócio" ou "Nova Empresa"</p>
             </div>
-          ) : filteredLocations.length === 0 ? (
+          ) : locaisVisiveis.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
               <Search className="h-16 w-16 text-muted-foreground/40" />
               <p className="text-muted-foreground text-lg">Nenhuma empresa encontrada para sua busca</p>
@@ -171,7 +227,7 @@ const LocationSelector = () => {
             </div>
           ) : (
             <div className="grid gap-4">
-              {filteredLocations.map((location, index) => (
+              {locaisVisiveis.map((location, index) => (
                 <div
                   key={location.google_location_id || index}
                   className="bg-card border border-border rounded-xl p-6 flex items-start justify-between gap-4 hover:border-primary/50 transition-colors shadow-purple"
@@ -196,6 +252,26 @@ const LocationSelector = () => {
                         <span>{location.category_primary}</span>
                       </div>
                     )}
+                    {(() => {
+                      const r = resumo[location.id] ?? { confirmados: 0, preenchidos: 0 };
+                      if (!r.confirmados && !r.preenchidos) return null;
+                      return (
+                        <div className="flex items-center gap-2 flex-wrap pt-1">
+                          {r.confirmados > 0 && (
+                            <span className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 text-emerald-400">
+                              <BadgeCheck className="h-3.5 w-3.5" />
+                              {r.confirmados} {r.confirmados === 1 ? 'perfil publicado' : 'perfis publicados'}
+                            </span>
+                          )}
+                          {r.preenchidos > 0 && (
+                            <span className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md border border-border text-muted-foreground">
+                              <CheckSquare className="h-3.5 w-3.5" />
+                              {r.preenchidos} formulário(s) preenchido(s)
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </div>
                   <div className="flex flex-col gap-2 shrink-0">
                     <button
