@@ -23,6 +23,7 @@
 const URL_BASE = Deno.env.get("SUPABASE_URL")!;
 const CHAVE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const SERPER = Deno.env.get("SERPER_API_KEY") ?? "";
+const CRON_TOKEN = Deno.env.get("CRON_TOKEN") ?? "";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -125,10 +126,46 @@ async function pegarHtml(url: string) {
   } finally { clearTimeout(t); }
 }
 
+// Quem pode chamar: o cron, uma chamada interna, ou pessoa da equipe.
+// Esta era a última das três funções de diretórios ainda ABERTA, e é a que mais
+// custa: cada verificação gasta crédito do Serper (chave compartilhada com o radar
+// do CRM), então qualquer um na internet podia zerar o saldo chamando em laço.
+// O cron chama com um token próprio do vault, não com a service_role — ver
+// directory-channels-check e directory-discovery, que usam exatamente esta guarda.
+async function podeChamar(req: Request): Promise<{ ok: true } | { ok: false; erro: string; status: number }> {
+  const jwt = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "").trim();
+  if (!jwt) return { ok: false, erro: "Falta o token de quem está chamando", status: 401 };
+  if (jwt === CHAVE) return { ok: true };            // chamada interna
+  if (CRON_TOKEN && jwt === CRON_TOKEN) return { ok: true };
+  try {
+    const r = await fetch(`${URL_BASE}/auth/v1/user`, {
+      headers: { apikey: CHAVE, Authorization: `Bearer ${jwt}` },
+    });
+    if (!r.ok) return { ok: false, erro: "Sessão inválida ou expirada", status: 401 };
+    const u = await r.json();
+    const email = String(u?.email ?? "").toLowerCase();
+    if (!email) return { ok: false, erro: "Sessão sem e-mail", status: 401 };
+    const lr = await fetch(
+      `${URL_BASE}/rest/v1/authorized_users?select=email&email=ilike.${encodeURIComponent(email)}`,
+      { headers: { apikey: CHAVE, Authorization: `Bearer ${CHAVE}` } },
+    );
+    const linhas = await lr.json();
+    if (!Array.isArray(linhas) || linhas.length === 0) {
+      return { ok: false, erro: "Seu e-mail não está autorizado neste sistema", status: 403 };
+    }
+    return { ok: true };
+  } catch {
+    return { ok: false, erro: "Não foi possível validar a sessão", status: 401 };
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   const json = (b: unknown, s = 200) =>
     new Response(JSON.stringify(b), { status: s, headers: { ...CORS, "Content-Type": "application/json" } });
+
+  const permitido = await podeChamar(req);
+  if (!permitido.ok) return json({ success: false, error: permitido.erro }, permitido.status);
 
   try {
     const u = new URL(req.url);
